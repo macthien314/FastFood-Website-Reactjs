@@ -13,7 +13,6 @@ const Carts = () => {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart.cartItems);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
-
   const toggleCart = () => {
     dispatch(cartUiActions.toggle());
   };
@@ -22,7 +21,7 @@ const Carts = () => {
       <ListGroup className="cart">
         <div className="cart__close">
           <span onClick={toggleCart}>
-            <i class="ri-close-fill"></i>
+            <i className="ri-close-fill"></i>
           </span>
         </div>
 
@@ -32,6 +31,7 @@ const Carts = () => {
           ) : (
             cartProducts.map((item, index) => (
               <CartItem item={item} key={index} />
+
             ))
           )}
         </div>

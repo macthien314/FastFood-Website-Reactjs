@@ -4,14 +4,17 @@ import CommonSection from "../components/UI/common-section/CommonSection";
 
 import { Container, Row, Col } from "reactstrap";
 
-import products from "../assets/fake-data/products";
+// import products from "../assets/fake-data/products";
 import ProductCard from "../components/UI/product-card/ProductCard";
 import ReactPaginate from "react-paginate";
 
 import "../styles/all-foods.css";
 import "../styles/pagination.css";
+import { useSelector } from "react-redux";
 
 const AllFoods = () => {
+  const products      = useSelector(state => state.product.productList);
+  
   const [searchTerm, setSearchTerm] = useState("");
 
   const [pageNumber, setPageNumber] = useState(0);
@@ -56,7 +59,7 @@ const AllFoods = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <span>
-                  <i class="ri-search-line"></i>
+                  <i className="ri-search-line"></i>
                 </span>
               </div>
             </Col>

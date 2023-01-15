@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-import products from "../assets/fake-data/products";
 import { useParams } from "react-router-dom";
 import Helmet from "../components/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../store/shopping-cart/cartSlice";
 
 import "../styles/product-details.css";
@@ -20,12 +19,14 @@ const FoodDetails = () => {
   const [reviewMsg, setReviewMsg] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
+  const products      = useSelector(state => state.product.productList);
+  const product = products.find((product) => product._id === id);
 
-  const product = products.find((product) => product.id === id);
+
   const [previewImg, setPreviewImg] = useState(product.image01);
   const { title, price, category, desc, image01 } = product;
 
-  const relatedProduct = products.filter((item) => category === item.category);
+  const relatedProduct = products.filter((item) => category.name === item.category.name);
 
   const addItem = () => {
     dispatch(
@@ -97,7 +98,7 @@ const FoodDetails = () => {
                   Price: <span>${price}</span>
                 </p>
                 <p className="category mb-5">
-                  Category: <span>{category}</span>
+                  Category: <span>{category.name}</span>
                 </p>
 
                 <button onClick={addItem} className="addTOCart__btn">
