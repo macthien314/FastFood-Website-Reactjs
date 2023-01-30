@@ -120,6 +120,14 @@
       display: block;
     }
   
+    .user{
+      display:flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .height-custom{
+      height: 10vh !important;
+    }
     .cart__icon i,
     .user i,
     .mobile__menu i {

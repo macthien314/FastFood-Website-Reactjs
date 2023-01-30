@@ -1,0 +1,19 @@
+.navbar-default {
+  background-color: #f1f0f0;
+  border-color: #8a8585;
+
+  border-bottom: 1px solid black;
+  width: 100%;
+}
+
+.navbar-side {
+  height: 100%;
+}
+
+/* .center-dropdown{
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:1;
+} */

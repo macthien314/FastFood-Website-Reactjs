@@ -1,0 +1,16 @@
+.navbar-side{
+    background-color: #f1f0f0;
+    width: 100%;
+
+
+}
+.navbar-side .nav-item {
+    transition: .9s;
+    padding-left: 16px;
+    line-height: 46px;
+    font-size: 16px;
+}
+.navbar-side .nav-item:hover{
+    background-color: white;
+    color: blue;
+}

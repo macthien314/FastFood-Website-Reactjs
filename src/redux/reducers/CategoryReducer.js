@@ -1,62 +1,35 @@
 
-import * as ACTION from '../constants/constants';
-// const stateDefault = {
-//     categoryList: [],
-//     // loading: true,
-//     // searchContent: '',
-
-// }
-// // export const getCategory = ()=>({
-// //     type:  ACTION.GET_CATEGORY
-// // })
-// const CategoryReducer = (state = stateDefault, action) => {
-//     switch (action.type) {
-//         case ACTION.GET_CATEGORY: {
-//             return { ...state,  categoryList: [ {...action.payLoad} ] }
-//         }
-//         // case ACTION.ADD_POST: {
-//         //     return {
-//         //         ...state,
-//         //         productList: [ ...state.productList, ...action.payload ]
-//         //     }
-//         // }
-//         // case ACTION.SET_LOADING: {
-//         //     return { ...state,  loading: action.payload }
-//         // }
-//         // case ACTION.SET_SEARCH_POST: {
-//         //     return { ...state,  searchContent: action.payload }
-//         // }
-   
-//         default:
-          
-//     }
-//     return { ...state }
-
-
-
-
-
-// }
-
-
-// export default CategoryReducer;
-
-
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const categorySlice = createSlice({
   name: "category",
-  initialState: { categoryList: []},
+  initialState: { categoryList: [] },
 
   reducers: {
-    getCategory() {},
-    setCategory:(state, action)=>({
-        ...state,
-        categoryList : action.payload
-    })
+    getCategory() { },
+
+    setCategory: (state, action) => ({
+      ...state,
+      categoryList: action.payload
+    }),
+    addCategory: (state, action) => {
+      console.log('action.payload',action.payload)
+      // state.categoryList.push(action.payload)
+    },
+    updateCategory: (state, action) => {
+      const { id, name } = action.payload;
+      const existingCategory = state.categoryList.find((category) => category.id === id);
+      if(existingCategory) {
+        existingCategory.name = name;
+      }
+    },
+    categoryDeleted(state, action) {
+      // state = state.categoryList.filter(i => i.id !== action.payload)
+      // return state
+    
+    },
   },
 });
 
-export const {getCategory, setCategory} = categorySlice.actions;
+export const { getCategory, setCategory, addCategory, updateCategory,categoryDeleted } = categorySlice.actions;
 export default categorySlice.reducer;

@@ -1,11 +1,70 @@
 
 import './App.css';
-import Layout from './components/Layout';
-
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from './pages/Home';
+import AllFoods from './pages/AllFoods';
+import FoodDetails from './pages/FoodDetails';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Contact from './pages/Contact';
+import Dashboard from './pages/Dashboard/dashboard/Dashboard';
+import Product from './pages/Dashboard/product/Product';
+import Category from './pages/Dashboard/category/Category';
+import AddProduct from './pages/Dashboard/product/AddProduct';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getToken, logOut } from './utils/auth';
+import { authRefreshToken, authUpdateUser } from './store/auth/auth-slice';
+import User from './pages/Dashboard/user/User';
+import AddCategory from './pages/Dashboard/category/AddCategory';
+import EditCategory from './pages/Dashboard/category/EditCategory';
 function App() {
-  
+
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (user && user.id) {
+      const { access_token } = getToken();
+      dispatch(
+        authUpdateUser({
+          user: user,
+          accessToken: access_token,
+        })
+      );
+    } else {
+      const { refresh_token } = getToken();
+      if (refresh_token) {
+        dispatch(authRefreshToken(refresh_token));
+      } else {
+        dispatch(authUpdateUser({}));
+        logOut();
+      }
+    }
+  }, [dispatch, user]);
+
   return (
-   <Layout></Layout>
+    <Routes>
+      <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/foods" element={<AllFoods />} />
+      <Route path="/foods/:id" element={<FoodDetails />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/contact" element={<Contact />} />
+
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/product" element={<Product />} />
+      <Route path="/add-product" element={<AddProduct />} />
+      <Route path="/category" element={<Category />} />
+      <Route path="/add-category" element={<AddCategory />} />
+      <Route path="/edit-category/:id" element={<EditCategory />} />
+      <Route path="/users" element={<User />} />
+    </Routes>
+
   );
 }
 

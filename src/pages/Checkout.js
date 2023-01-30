@@ -5,6 +5,7 @@ import CommonSection from "../components/UI/common-section/CommonSection";
 import Helmet from "../components/Helmet";
 
 import "../styles/checkout.css";
+import Layout from "../components/Layout";
 
 const Checkout = () => {
   const [enterName, setEnterName] = useState("");
@@ -36,6 +37,7 @@ const Checkout = () => {
   };
 
   return (
+    <Layout>
     <Helmet title="Checkout">
       <CommonSection title="Checkout" />
       <section>
@@ -118,6 +120,7 @@ const Checkout = () => {
         </Container>
       </section>
     </Helmet>
+    </Layout>
   );
 };
 

@@ -1,13 +1,15 @@
 import React, { useRef, useEffect } from "react";
 
-import { Container } from "reactstrap";
+import { Container, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from "reactstrap";
 import logo from "../assets/images/res-logo.png";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { cartUiActions } from "../store/shopping-cart/cartUiSlice";
 
 import "../styles/header.css";
+import { logout } from "../redux/reducers/authReducer";
+
 
 const nav__links = [
   {
@@ -29,10 +31,19 @@ const nav__links = [
 ];
 
 const Header = () => {
+
+  const user = useSelector(state => state.auth.currentUser);
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const menuRef = useRef(null);
   const headerRef = useRef();
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+      dispatch(logout());
+      navigate("/");
+ 
+  };
 
   const toggleMenu = () => menuRef.current.classList.toggle("show__menu");
 
@@ -53,7 +64,7 @@ const Header = () => {
     });
 
     return () => window.removeEventListener("scroll", () => {
-    
+
     });
   }, []);
 
@@ -91,10 +102,50 @@ const Header = () => {
             </span>
 
             <span className="user">
-              <Link to="/login">
-                <i className="ri-user-line"></i>
-              </Link>
+
+              <i className="ri-user-line">
+
+              </i>
+
+              <UncontrolledDropdown className="mb-2 " group>
+                <DropdownToggle className='dropdown-toggle dropdown-toggle-split border-0 d-flex align-items-center p-0' color="#f1f0f0" />
+                <DropdownMenu>
+                  <DropdownItem header>
+                    {user?.username || 'Header'}
+                  </DropdownItem>
+                  {!isLoggedIn &&
+                    <Link to='/login'>
+                      <DropdownItem style={{ height: '7vh' }} className=" d-flex align-items-center gap-1  py-4 " >
+                       <i className="ri-user-fill mb-1"></i> Login
+                      </DropdownItem>
+                    </Link>
+                  }
+
+                  {isLoggedIn &&
+                  <Link to='/dashboard'>
+                    <DropdownItem style={{ height: '7vh' }} className=" d-flex align-items-center gap-1  py-4" >
+                      <i className="ri-user-fill mb-1"></i>DashBoard
+
+                    </DropdownItem>
+                  </Link>
+                }
+                {!isLoggedIn &&
+                  <Link to='/register'>
+                  <DropdownItem style={{ height: '7vh' }} className=" d-flex align-items-center gap-1 py-4">
+                    <i className="ri-settings-2-fill"></i>Register
+                  </DropdownItem>
+                  </Link>
+                }
+                  <DropdownItem onClick={handleLogout} style={{ height: '7vh' }} className=" d-flex align-items-center gap-1  py-4">
+                    <i className="ri-logout-box-r-line"></i>Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+
             </span>
+
+
+
 
             <span className="mobile__menu" onClick={toggleMenu}>
               <i className="ri-menu-line"></i>

@@ -27,6 +27,7 @@ import whyImg from "../assets/images/location.png";
 import networkImg from "../assets/images/network.png";
 
 import TestimonialSlider from "../components/UI/slider/TestimonialSlider.js";
+import Layout from "../components/Layout.js";
 
 const featureData = [
   {
@@ -90,6 +91,7 @@ const Home = () => {
   }, [category, products]);
 
   return (
+    <Layout>
     <Helmet title="Home">
       <section>
         <Container>
@@ -343,6 +345,7 @@ const Home = () => {
         </Container>
       </section>
     </Helmet>
+    </Layout>
   );
 };
 

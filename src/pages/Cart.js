@@ -7,11 +7,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
 import { cartActions } from "../store/shopping-cart/cartSlice";
 import { Link } from "react-router-dom";
+import Layout from "../components/Layout";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
   return (
+    <Layout>
     <Helmet title="Cart">
       <CommonSection title="Your Cart" />
       <section>
@@ -59,6 +61,7 @@ const Cart = () => {
         </Container>
       </section>
     </Helmet>
+    </Layout>
   );
 };
 

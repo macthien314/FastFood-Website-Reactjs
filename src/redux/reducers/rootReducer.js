@@ -6,28 +6,32 @@ import logger from "redux-logger"
 
 import productSlice from './ProductReducer';
 import categorySlice from './CategoryReducer';
+import userSlice from './UserReducer';
 
 
-import {applyMiddleware, createStore, combineReducers } from 'redux';
+import { applyMiddleware, createStore, combineReducers } from 'redux';
 import rootSaga from '../saga/rootSaga';
 import createSagaMiddleware from 'redux-saga';
+import authReducer from "./authReducer";
 
-
+// import authReducer from "../../store/auth/auth-slice";
 const sagaMiddleware = createSagaMiddleware();
 
 const reducer = combineReducers({
   //reducer khai báo tại đây
-    product: productSlice,
-    category: categorySlice,
-    cart: cartSlice.reducer,
-    cartUi: cartUiSlice.reducer,
+  product: productSlice,
+  category: categorySlice,
+  cart: cartSlice.reducer,
+  user:userSlice,
+  cartUi: cartUiSlice.reducer,
+  auth: authReducer,
 
 })
 
 const store = configureStore(
   {
-    reducer, 
-    middleware:(gDM) => gDM().concat (logger,sagaMiddleware)
+    reducer,
+    middleware: (gDM) => gDM().concat(logger, sagaMiddleware)
   });
 
 

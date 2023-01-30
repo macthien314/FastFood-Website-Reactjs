@@ -1,0 +1,10 @@
+.text-color a:hover{
+   color: white;
+}
+textarea {
+   resize: none !important;
+ }
+ label{
+   font-size: 18px;
+   font-weight: bold;
+ }

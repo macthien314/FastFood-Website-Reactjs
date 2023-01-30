@@ -11,6 +11,7 @@ import { cartActions } from "../store/shopping-cart/cartSlice";
 import "../styles/product-details.css";
 
 import ProductCard from "../components/UI/product-card/ProductCard";
+import Layout from "../components/Layout";
 
 const FoodDetails = () => {
   const [tab, setTab] = useState("desc");
@@ -54,6 +55,7 @@ const FoodDetails = () => {
   }, [product]);
 
   return (
+    <Layout>
     <Helmet title="Product-details">
       <CommonSection title={title} />
 
@@ -196,6 +198,7 @@ const FoodDetails = () => {
         </Container>
       </section>
     </Helmet>
+    </Layout>
   );
 };
 

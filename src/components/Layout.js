@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
-
 import Header from "./Header";
 import Footer from "./Footer";
-import Routes from "../routes/Routers";
-
 import Carts from "./UI/cart/Carts.js";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../redux/reducers/ProductReducer";
 import { getCategory } from "../redux/reducers/CategoryReducer";
 
-const Layout = () => {
+const Layout = ({children}) => {
+  // const {query}      = useSelector(state => state.product.productList);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProduct());
@@ -24,7 +22,7 @@ const Layout = () => {
       {showCart && <Carts />}
 
       <div>
-        <Routes />
+      {children}
       </div>
       <Footer />
     </div>
