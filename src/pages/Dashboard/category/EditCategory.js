@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Form, Row } from "reactstrap";
 import Home from "../home/Home";
 import "./category.css";
 import {
-  getCategory,
   updateCategory
 } from "../../../redux/reducers/CategoryReducer";
 
@@ -22,14 +21,13 @@ const EditCategory = () => {
   const categoryId = params.id;
 
 
-  // const category = useSelector((state) => state.category.categoryList);
   const category = useSelector((state) =>
     state.category.categoryList.find((category) => category._id === categoryId)
   );
 
 
 
-  // console.log("category.categoryId",category._id);
+
   const schemaValidation = Yup.object({
     name: Yup.string()
       .max(100, "Tên loại sản phẩm ít hơn 100 kí tự")
@@ -39,13 +37,10 @@ const EditCategory = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isValid, isDirty, dirtyFields, defaultValues },
+    formState: { errors, isValid},
     // watch,
     reset,
-    // resetField,
-    // setFocus,
-    setValue,
-    // control,
+
   } = useForm({
     resolver: yupResolver(schemaValidation),
     mode: "onChange",

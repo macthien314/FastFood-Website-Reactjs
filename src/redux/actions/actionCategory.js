@@ -13,7 +13,7 @@ function* workerGetCategory() {
 }
 async function fetchCategory() {
     try {
-        const response = await axios.get(`https://fastfood314.up.railway.app/api/v1/category`);
+        const response = await axios.get(`http://localhost:4000/api/v1/category`);
         return response.data;
     } catch (error) {
         return [];
@@ -45,7 +45,7 @@ function* workerAddCategory(action) {
 async function addNewCatgory(data) {
     try {
         const token = localStorage.getItem('access_token');
-        const response = await axios.post(`https://fastfood314.up.railway.app/api/v1/category/add`, data, {
+        const response = await axios.post(`http://localhost:4000/api/v1/category/add`, data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ async function updateCatgory(data) {
     try {
 
         const token = localStorage.getItem('access_token');
-        const response = await axios.put(`https://fastfood314.up.railway.app/api/v1/category/edit/${data.id}`, data, {
+        const response = await axios.put(`http://localhost:4000/api/v1/category/edit/${data.id}`, data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
@@ -106,7 +106,7 @@ async function deleteCatgory(data) {
     try {
 
         const token = localStorage.getItem('access_token');
-        const response = await axios.delete(`https://fastfood314.up.railway.app/api/v1/category/delete/${data}`, {
+        const response = await axios.delete(`http://localhost:4000/api/v1/category/delete/${data}`, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,

@@ -48,7 +48,7 @@ async function fetchAuth(data) {
 
   try {
     const axiosClient = axios.create({
-      baseURL: "https://fastfood314.up.railway.app/api/v1",
+      baseURL: "http://localhost:4000/api/v1",
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",
@@ -75,7 +75,7 @@ async function fetchUser(token) {
   if (!token) return;
 
   try {
-    const response = await axios.get(`https://fastfood314.up.railway.app/api/v1/auth/me`, {
+    const response = await axios.get(`http://localhost:4000/api/v1/auth/me`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -109,7 +109,7 @@ async function fetchRegister(data) {
 
   try {
     const axiosClient = axios.create({
-      baseURL: "https://fastfood314.up.railway.app/api/v1",
+      baseURL: "http://localhost:4000/api/v1",
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",

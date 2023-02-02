@@ -14,11 +14,14 @@ const productSlice = createSlice({
       ...state,
       productList: action.payload
     }),
-    addProduct: (state, action) => ({
+    addProduct: (state, action) => (
+  
+      state.productList.push(action.payload)
       // ...state,
       // productList: [...state.productList, ...action.payload]
+    
 
-    }),
+    ),
     setQuery: (state, action) => ({
       ...state,
       productList: action.payload

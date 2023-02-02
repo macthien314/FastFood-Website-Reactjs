@@ -4,10 +4,15 @@ import { Table } from "reactstrap";
 import Home from "../home/Home";
 import "./user.css"
 import { Link } from "react-router-dom";
+
 import ReactPaginate from "react-paginate";
 import { getUser } from "../../../redux/reducers/UserReducer";
+
+import PageNotFound from "../pageNotFound/pageNotFound";
 const User = () => {
   const user = useSelector((state) => state.user.userList);
+  const auth = useSelector((state) => state.auth.currentUser);
+
 
 
 
@@ -20,8 +25,8 @@ const User = () => {
 
   const [pageNumber, setPageNumber] = useState(0);
 
-  const searchedUser = user.filter((item) => {
-    if (searchTerm.value === "") {
+  const searchedUser = user?.filter((item) => {
+    if (searchTerm?.value === "") {
       return item;
     }
     if (item.username.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -33,18 +38,21 @@ const User = () => {
 
   const userPerPage = 5;
   const visitedPage = pageNumber * userPerPage;
-  const displayPage = searchedUser.slice(
+  const displayPage = searchedUser?.slice(
     visitedPage,
     visitedPage + userPerPage
   );
 
-  const pageCount = Math.ceil(searchedUser.length / userPerPage);
+  const pageCount = Math.ceil(searchedUser?.length / userPerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
+
   return (
+   
     <Home>
+     {auth &&
       <div id="page-wrapper">
         <div className="row me-0">
           <div className="col-lg-12 ">
@@ -131,7 +139,7 @@ const User = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {displayPage.map((items, index) => {
+                      {displayPage?.map((items, index) => {
                         return (<tr>
                           <td>{items._id.slice(0, 24) + '...'}</td>
                           <td>{items.username}</td>
@@ -164,6 +172,14 @@ const User = () => {
               </div>
             </div>
           </div>
+          
+     }
+    
+   {
+    !auth &&  <PageNotFound></PageNotFound>
+   }
+   
+   
      
     </Home>
   );

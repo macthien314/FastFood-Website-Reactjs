@@ -11,16 +11,18 @@ import {
   UncontrolledDropdown,
 } from "reactstrap";
 import Home from "../home/Home";
-import { addProduct, getProduct } from "../../../redux/reducers/ProductReducer";
+import {  getProduct } from "../../../redux/reducers/ProductReducer";
 import "./product.css";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import { getCategory } from "../../../redux/reducers/CategoryReducer";
 const Product = () => {
   const products = useSelector((state) => state.product.productList);
-  console.log(products);
+  const category = useSelector((state) => state.category.categoryList);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProduct());
+    dispatch(getCategory());
   }, [dispatch]);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -162,12 +164,13 @@ const Product = () => {
                     </thead>
                     <tbody>
                       {displayPage.map((items, index) => {
+                        const categoryName = category.find(item => item.id === items.category_id);
                         return (
                           <tr>
                             <td>{items._id.slice(0, 24) + "..."}</td>
                             <td>{items.title}</td>
                             <td>{items.price}</td>
-                            <td>{items.category.name}</td>
+                            <td>{categoryName?.name}</td>
                             <td title={items.image01}>
                               {items.image01.slice(0, 10) + "..."}
                             </td>
@@ -175,8 +178,7 @@ const Product = () => {
                               {items.desc.slice(0, 20) + "..."}
                             </td>
                             <td>
-                              <Link className="btn btn-outline-success me-1 pd-0">
-                                {" "}
+                              <Link to={`/edit-product/${items._id}`} className="btn btn-outline-success me-1 pd-0">
                                 <i className="ri-edit-box-line"></i>
                               </Link>
                               <Link className="btn btn-outline-danger">

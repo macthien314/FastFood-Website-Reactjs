@@ -13,6 +13,7 @@ import Dashboard from './pages/Dashboard/dashboard/Dashboard';
 import Product from './pages/Dashboard/product/Product';
 import Category from './pages/Dashboard/category/Category';
 import AddProduct from './pages/Dashboard/product/AddProduct';
+import EditProduct from './pages/Dashboard/product/EditProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getToken, logOut } from './utils/auth';
@@ -20,6 +21,9 @@ import { authRefreshToken, authUpdateUser } from './store/auth/auth-slice';
 import User from './pages/Dashboard/user/User';
 import AddCategory from './pages/Dashboard/category/AddCategory';
 import EditCategory from './pages/Dashboard/category/EditCategory';
+
+
+import PageNotFound from './pages/Dashboard/pageNotFound/pageNotFound';
 function App() {
 
   const { user } = useSelector((state) => state.auth);
@@ -59,10 +63,14 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/product" element={<Product />} />
       <Route path="/add-product" element={<AddProduct />} />
+      <Route path="/edit-product/:id" element={<EditProduct />} />
+
       <Route path="/category" element={<Category />} />
       <Route path="/add-category" element={<AddCategory />} />
       <Route path="/edit-category/:id" element={<EditCategory />} />
       <Route path="/users" element={<User />} />
+
+      <Route path="/page-404" element={<PageNotFound />} />
     </Routes>
 
   );

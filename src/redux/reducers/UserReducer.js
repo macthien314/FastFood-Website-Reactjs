@@ -19,8 +19,7 @@ const userSlice = createSlice({
       userList : action.payload
     }),
     addUser: (state, action) => {
-      console.log('action.payload',action.payload)
-      // state.categoryList.push(action.payload)
+
     },
     updateUser: (state, action) => {
       const { id, name } = action.payload;

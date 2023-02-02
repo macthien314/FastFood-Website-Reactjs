@@ -10,12 +10,24 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from "yup";
 import { addProduct } from "../../../redux/reducers/ProductReducer";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 const AddProduct = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const params = useParams();
+    const productId = params.id;
+
+
     const category = useSelector((state) => state.category.categoryList);
+
+    const product = useSelector((state) =>
+        state.product.productList.find((product) => product._id === productId)
+    );
+ 
+    const categoryName = category.find(item => item.id === product.category_id)
+
     const schemaValidation = Yup.object({
         title: Yup.string()
             .max(100, "Tên sản phẩm ít hơn 100 kí tự")
@@ -32,7 +44,7 @@ const AddProduct = () => {
         image01: Yup.string().required("Ảnh không được rỗng"),
         image02: Yup.string().required("Ảnh không được rỗng"),
         image03: Yup.string().required("Ảnh không được rỗng"),
-        // category: Yup.string().required("Ảnh không được rỗng"),
+
     })
     const {
         register,
@@ -44,11 +56,13 @@ const AddProduct = () => {
         resolver: yupResolver(schemaValidation),
         mode: "onChange",
         defaultValues: {
-            title: "",
-            price: "",
-            desc: "",
-            category_id: "",
-            category: {},
+            title: `${product.title}`,
+            price: `${product.price}`,
+            desc: `${product.desc}`,
+            image1: `${product.image1}`,
+            image2: `${product.image2}`,
+            image3: `${product.image3}`,
+            category_id: `${product.category_id}`,
         },
 
     });
@@ -56,6 +70,7 @@ const AddProduct = () => {
     const [image2, setImage2] = useState('');
     const [image3, setImage3] = useState('');
     const onSubmit = async (values) => {
+
         const formData = new FormData();
         formData.append('image01', image1)
         formData.append('image02', image2)
@@ -70,7 +85,7 @@ const AddProduct = () => {
 
 
 
-        // console.log('formData', [...formData])
+
 
         // values.image01 = image1;
         // values.image02 = image2;
@@ -116,22 +131,13 @@ const AddProduct = () => {
         dispatch(getCategory());
     }, [dispatch]);
 
-    //lưu object category trong database post
-    // const handleClickOption = (item) => {
-    //     let categoryFilter = category.find(categories => categories.id === item);
-    //     setValue('category', {
-    //         id: categoryFilter.id,
-    //         name: categoryFilter.name
-    //     });
-    //     setValue('category_id', item);
-    // }
 
     return (
         <Home>
             <div id="page-wrapper">
                 <Row className=" me-0">
                     <div className="col-lg-12 ">
-                        <h1 className="page-header">Add Product</h1>
+                        <h1 className="page-header">Edit Product</h1>
                     </div>
                 </Row>
 
@@ -244,12 +250,14 @@ const AddProduct = () => {
                                             {/* <select  {...register("category_id", {
                                                 onChange: (e) => handleClickOption(e.target.value)
                                             })} */}
+
                                             <select  {...register("category_id")}
                                                 className="form-control mb-3 mt-1"
                                             >
-                                                {category.map((items, index) => {
-                                                    return <option key={index} value={items.id}>{items.name}</option>;
-                                                })}
+                                                {
+                                                    category.map((items, index) => {
+                                                        return <option key={index} value={items.id}>{items.name}</option>;
+                                                    })}
                                             </select>
                                             {/* {formik.touched.category && formik.errors.category ? (
                                                 <div className="text-danger">{formik.errors.category}</div>
