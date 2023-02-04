@@ -22,12 +22,21 @@ const productSlice = createSlice({
     
 
     ),
-    setQuery: (state, action) => ({
-      ...state,
-      productList: action.payload
-    })
+   
+    updateProduct: (state, action) => {
+      const { id, title } = action.payload;
+      const existingCategory = state.productList.find((product) => product.id === id);
+      if(existingCategory) {
+        existingCategory.title = title;
+      }
+    },
+    productDeleted(state, action) {
+      // state = state.categoryList.filter(i => i.id !== action.payload)
+      // return state
+    
+    },
   },
 });
 
-export const { getProduct, setProduct, setQuery, addProduct } = productSlice.actions;
+export const { getProduct, setProduct, setQuery, addProduct,updateProduct,productDeleted } = productSlice.actions;
 export default productSlice.reducer;

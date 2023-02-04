@@ -22,10 +22,13 @@ const userSlice = createSlice({
 
     },
     updateUser: (state, action) => {
-      const { id, name } = action.payload;
+      const { id, username, email,password, role } = action.payload;
       const existingUser = state.userList.find((user) => user.id === id);
       if(existingUser) {
-        existingUser.name = name;
+        existingUser.username = username;
+        existingUser.email = email;
+        existingUser.password = password;
+        existingUser.role = role;
       }
     },
     userDeleted(state, action) {

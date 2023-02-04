@@ -8,11 +8,11 @@ import { getCategory } from "../../../redux/reducers/CategoryReducer";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from "yup";
-import { addProduct } from "../../../redux/reducers/ProductReducer";
+import { addProduct, getProduct, updateProduct } from "../../../redux/reducers/ProductReducer";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-const AddProduct = () => {
+const EditProduct = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -25,8 +25,10 @@ const AddProduct = () => {
     const product = useSelector((state) =>
         state.product.productList.find((product) => product._id === productId)
     );
+
+    // console.log('product',product)
  
-    const categoryName = category.find(item => item.id === product.category_id)
+    // const categoryName = category.find(item => item.id === product.category_id)
 
     const schemaValidation = Yup.object({
         title: Yup.string()
@@ -80,28 +82,22 @@ const AddProduct = () => {
         formData.append('price', values.price)
         formData.append('category_id', values.category_id)
 
-        formData.append('category', JSON.stringify(values.category))
-
-
-
-
-
-
+        // formData.append('category', JSON.stringify(values.category))
         // values.image01 = image1;
         // values.image02 = image2;
         // values.image03 = image3;
-
+        console.log('formData',formData)
         if (isValid) {
             try {
                 const token = localStorage.getItem('access_token');
-                const response = await axios.post(`http://localhost:4000/api/v1/product/add`, formData, {
+                const response = await axios.put(`https://fastfood314.up.railway.app/api/v1/product/edit/${productId}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`,
                     },
 
                 });
-                dispatch(addProduct(response.data.data))
+                dispatch(getProduct())
             } catch (error) {
                 console.log('error', error)
 
@@ -119,7 +115,7 @@ const AddProduct = () => {
                 // category: {},
 
             });
-            toast.success('Thêm loại sản phẩm thành công')
+            toast.success('Sửa sản phẩm thành công')
 
             setTimeout(() => {
                 navigate("/product");
@@ -207,6 +203,7 @@ const AddProduct = () => {
                                                             onChange: (e) => setImage1(e.target.files[0])
                                                         })}
                                                     />
+                                                    <img style={{width:'100px', height:'100px'}} src={product.image01} alt=''></img>
                                                     {errors?.image01 && (
                                                         <div className="text-danger">{errors.image01?.message}</div>
                                                     )}
@@ -223,6 +220,7 @@ const AddProduct = () => {
                                                             onChange: (e) => setImage2(e.target.files[0])
                                                         })}
                                                     />
+                                                       <img style={{width:'100px', height:'100px'}} src={product.image02} alt=''></img>
                                                     {errors?.image02 && (
                                                         <div className="text-danger">{errors.image02?.message}</div>
                                                     )}
@@ -239,6 +237,8 @@ const AddProduct = () => {
                                                             onChange: (e) => setImage3(e.target.files[0])
                                                         })}
                                                     />
+                                                       <img style={{width:'100px', height:'100px'}} src={product.image03} alt=''></img>
+
                                                     {errors?.image03 && (
                                                         <div className="text-danger">{errors.image03?.message}</div>
                                                     )}
@@ -263,13 +263,13 @@ const AddProduct = () => {
                                                 <div className="text-danger">{formik.errors.category}</div>
                                             ) : null} */}
                                         </div>
-                                        {/* <input
+                                        <input
 
                                             className="form-control"
-                                            name="category"
-                                            {...register("category")}
+                                            name="id"
+                                            {...register("id")}
                                             type="hidden"
-                                        /> */}
+                                        />
 
                                         <button type="submit" className="btn btn-primary me-2">
                                             Submit
@@ -292,4 +292,4 @@ const AddProduct = () => {
     );
 };
 
-export default AddProduct;
+export default EditProduct;

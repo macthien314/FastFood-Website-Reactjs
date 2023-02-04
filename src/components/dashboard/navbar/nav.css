@@ -13,4 +13,6 @@
 .navbar-side .nav-item:hover{
     background-color: white;
     color: blue;
+ 
+    padding: 1px;
 }

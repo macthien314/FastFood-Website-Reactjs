@@ -3,7 +3,7 @@ import { Col, Row } from 'reactstrap';
 import Navbar from '../../../components/dashboard/navbar/NavbarHeader';
 import Sidebar from '../../../components/dashboard/sidebar/Sidebar';
 // import "./home.scss";
-const Home = ( {children}) => {
+const Home = ({ children }) => {
   return (
     <div className="w-100">
       <Sidebar />
@@ -12,10 +12,11 @@ const Home = ( {children}) => {
           <Navbar />
         </Col>
         <Col xs="10" className='p-0'>
-        {children}
+          {children}
         </Col>
       </Row>
     </div>
+   
   );
 };
 

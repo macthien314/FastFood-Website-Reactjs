@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Table } from "reactstrap";
+import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, Table, UncontrolledDropdown } from "reactstrap";
 import Home from "../home/Home";
 import "./user.css"
 import { Link } from "react-router-dom";
 
 import ReactPaginate from "react-paginate";
-import { getUser } from "../../../redux/reducers/UserReducer";
+import { getUser,userDeleted } from "../../../redux/reducers/UserReducer";
 
 import PageNotFound from "../pageNotFound/pageNotFound";
+import { toast } from "react-toastify";
 const User = () => {
   const user = useSelector((state) => state.user.userList);
   const auth = useSelector((state) => state.auth.currentUser);
@@ -49,10 +50,18 @@ const User = () => {
     setPageNumber(selected);
   };
 
+  const hangdleDelete = (id)=>{
+    dispatch(userDeleted(id));
+    setTimeout(()=>{
+      toast.success('Xóa loại sản phẩm thành công')
+    },200)
+ 
+  }
+
   return (
    
     <Home>
-     {auth &&
+     {/* {auth && */}
       <div id="page-wrapper">
         <div className="row me-0">
           <div className="col-lg-12 ">
@@ -118,6 +127,25 @@ const User = () => {
               </div>
             </div>
           </div>
+          <Row>
+            <Col className="d-flex justify-content-between pb-4 ps-3" xs="12">
+              <UncontrolledDropdown className="me-2" direction="down">
+                <DropdownToggle caret color="info">
+                  Dropdown
+                </DropdownToggle>
+                <DropdownMenu data-popper-placement="bottom-start">
+                  <DropdownItem>Active</DropdownItem>
+                  <DropdownItem>InActive</DropdownItem>
+                  <DropdownItem>Delete</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+
+              <Link to='/add-user'>
+                <Button color="success" outline>Add user</Button>
+              </Link>
+
+            </Col>
+          </Row>
 
           <div className="col-lg-12">
             <div className="panel panel-info">
@@ -147,8 +175,8 @@ const User = () => {
                           <td title={items.password}>{items.password.slice(0,10) + '...'}</td>
                           <td>{items.role}</td>
                           <td>
-                            <Link className="btn btn-outline-success me-1 pd-0"> <i className="ri-edit-box-line"></i></Link>
-                            <Link className="btn btn-outline-danger"><i className="ri-delete-bin-5-line"></i></Link>
+                            <Link to={`/edit-user/${items._id}`} className="btn btn-outline-success me-1 pd-0"> <i className="ri-edit-box-line"></i></Link>
+                            <Link onClick={()=>{hangdleDelete(items._id)}} className="btn btn-outline-danger"><i className="ri-delete-bin-5-line"></i></Link>
                           </td>
                         </tr>)
                       })}
@@ -173,11 +201,11 @@ const User = () => {
             </div>
           </div>
           
-     }
+     {/* } */}
     
-   {
+   {/* {
     !auth &&  <PageNotFound></PageNotFound>
-   }
+   } */}
    
    
      

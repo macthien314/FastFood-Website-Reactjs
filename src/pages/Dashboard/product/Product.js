@@ -11,11 +11,12 @@ import {
   UncontrolledDropdown,
 } from "reactstrap";
 import Home from "../home/Home";
-import {  getProduct } from "../../../redux/reducers/ProductReducer";
+import {  getProduct, productDeleted } from "../../../redux/reducers/ProductReducer";
 import "./product.css";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { getCategory } from "../../../redux/reducers/CategoryReducer";
+import { toast } from "react-toastify";
 const Product = () => {
   const products = useSelector((state) => state.product.productList);
   const category = useSelector((state) => state.category.categoryList);
@@ -33,7 +34,7 @@ const Product = () => {
     if (searchTerm.value === "") {
       return item;
     }
-    if (item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+    if (item?.title.toLowerCase().includes(searchTerm.toLowerCase())) {
       return item;
     } else {
       return console.log("not found");
@@ -54,6 +55,13 @@ const Product = () => {
   };
 
 
+  const hangdleDelete = (id)=>{
+    dispatch(productDeleted(id));
+    setTimeout(()=>{
+      toast.success('Xóa loại sản phẩm thành công')
+    },200)
+ 
+  }
 
   return (
     <Home>
@@ -181,7 +189,7 @@ const Product = () => {
                               <Link to={`/edit-product/${items._id}`} className="btn btn-outline-success me-1 pd-0">
                                 <i className="ri-edit-box-line"></i>
                               </Link>
-                              <Link className="btn btn-outline-danger">
+                              <Link onClick={()=>{hangdleDelete(items._id)}} className="btn btn-outline-danger">
                                 <i className="ri-delete-bin-5-line"></i>
                               </Link>
                             </td>

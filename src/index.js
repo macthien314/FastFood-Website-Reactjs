@@ -14,6 +14,7 @@ import { Provider } from "react-redux";
 import store from "./redux/reducers/rootReducer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScrollButton from './components/ScrollButton';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -22,6 +23,7 @@ root.render(
       <Provider store={store}>
         <App />
         <ToastContainer bodyClassName="font-primary text-sm"></ToastContainer>
+        <ScrollButton/>
       </Provider>
     </Router>
 

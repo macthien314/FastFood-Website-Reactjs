@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { put, call, takeLeading } from 'redux-saga/effects';
-import {addUser,updateUser,userDeleted } from '../reducers/UserReducer';
+import { addUser, updateUser, userDeleted } from '../reducers/UserReducer';
 import { setUser, getUser } from '../reducers/UserReducer';
 function* workerGetUser() {
     try {
-        const {data} = yield call(fetchUser);
+        const { data } = yield call(fetchUser);
         yield put(setUser(data));
 
     } catch (error) {
@@ -15,12 +15,12 @@ function* workerGetUser() {
 async function fetchUser() {
     try {
         const token = localStorage.getItem('access_token');
-        const response = await axios.get(`http://localhost:4000/api/v1/users`, {
+        const response = await axios.get(`https://fastfood314.up.railway.app/api/v1/users`, {
             headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             }
-          });
+        });
         return response.data;
     } catch (error) {
         return [];
@@ -41,6 +41,8 @@ function* workerAddUser(action) {
 
     try {
         const { data } = yield call(addNewUser, action.payload);
+        console.log('data', data)
+
         yield put(addUser(data));
 
 
@@ -50,9 +52,10 @@ function* workerAddUser(action) {
     }
 }
 async function addNewUser(data) {
+  
     try {
         const token = localStorage.getItem('access_token');
-        const response = await axios.post(`http://localhost:4000/api/v1/users/add`, data, {
+        const response = await axios.post(`https://fastfood314.up.railway.app/api/v1/users/add`, data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
@@ -65,7 +68,7 @@ async function addNewUser(data) {
 }
 
 function* workerUpdateUser(action) {
-
+    console.log('workerUpdateUser', action)
     try {
         const { data } = yield call(updateUsers, action.payload);
         yield put(updateUser(data));
@@ -79,11 +82,10 @@ function* workerUpdateUser(action) {
 }
 
 async function updateUsers(data) {
-
     try {
 
         const token = localStorage.getItem('access_token');
-        const response = await axios.put(`http://localhost:4000/api/v1/users/edit/${data.id}`, data, {
+        const response = await axios.put(`https://fastfood314.up.railway.app/api/v1/users/edit/${data.id}`, data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
@@ -113,7 +115,7 @@ async function deleteUsers(data) {
     try {
 
         const token = localStorage.getItem('access_token');
-        const response = await axios.delete(`http://localhost:4000/api/v1/users/delete/${data}`, {
+        const response = await axios.delete(`https://fastfood314.up.railway.app/api/v1/users/delete/${data}`, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,

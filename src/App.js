@@ -19,6 +19,8 @@ import { useEffect } from 'react';
 import { getToken, logOut } from './utils/auth';
 import { authRefreshToken, authUpdateUser } from './store/auth/auth-slice';
 import User from './pages/Dashboard/user/User';
+import AddUser from './pages/Dashboard/user/AddUser';
+import EditUser from './pages/Dashboard/user/EditUser';
 import AddCategory from './pages/Dashboard/category/AddCategory';
 import EditCategory from './pages/Dashboard/category/EditCategory';
 
@@ -68,7 +70,10 @@ function App() {
       <Route path="/category" element={<Category />} />
       <Route path="/add-category" element={<AddCategory />} />
       <Route path="/edit-category/:id" element={<EditCategory />} />
+
       <Route path="/users" element={<User />} />
+      <Route path="/add-user" element={<AddUser />} />
+      <Route path="/edit-user/:id" element={<EditUser />} />
 
       <Route path="/page-404" element={<PageNotFound />} />
     </Routes>
