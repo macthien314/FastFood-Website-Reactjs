@@ -159,7 +159,7 @@ const Category = () => {
                     </thead>
                     <tbody>
                       {displayPage.map((items, index) => {
-                        return (<tr>
+                        return (<tr key={index}>
                           <td>{items._id}</td>
                           <td>{items.name}</td>
                           <td>

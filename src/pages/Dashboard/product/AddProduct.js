@@ -65,7 +65,7 @@ const AddProduct = () => {
         formData.append('price', values.price)
         formData.append('category_id', values.category_id)
 
-        formData.append('category', JSON.stringify(values.category))
+        // formData.append('category', JSON.stringify(values.category))
 
 
 

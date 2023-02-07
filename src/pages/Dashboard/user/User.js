@@ -168,7 +168,7 @@ const User = () => {
                     </thead>
                     <tbody>
                       {displayPage?.map((items, index) => {
-                        return (<tr>
+                        return (<tr key={index}>
                           <td>{items._id.slice(0, 24) + '...'}</td>
                           <td>{items.username}</td>
                           <td>{items.email}</td>

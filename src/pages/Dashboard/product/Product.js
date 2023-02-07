@@ -59,7 +59,7 @@ const Product = () => {
     dispatch(productDeleted(id));
     setTimeout(()=>{
       toast.success('Xóa loại sản phẩm thành công')
-    },200)
+    },500)
  
   }
 
@@ -174,7 +174,7 @@ const Product = () => {
                       {displayPage.map((items, index) => {
                         const categoryName = category.find(item => item.id === items.category_id);
                         return (
-                          <tr>
+                          <tr key={index}>
                             <td>{items._id.slice(0, 24) + "..."}</td>
                             <td>{items.title}</td>
                             <td>{items.price}</td>
