@@ -1,51 +1,27 @@
-// import { takeLatest } from "redux-saga/effects";
-// import handleAuthRegister, {
-//   handleAuthLogin,
-//   handleAuthLogOut,
-//   handleAuthRefreshToken,
-// } from "./auth-handlers";
-// import {
-//   authLogin,
-//   authLogOut,
-//   authRefreshToken,
-//   authRegister,
-// } from "./auth-slice";
-// export default function* authSaga() {
-//   yield takeLatest(authRegister.type, handleAuthRegister);
-//   yield takeLatest(authLogin.type, handleAuthLogin);
-//   yield takeLatest(authRefreshToken.type, handleAuthRefreshToken);
-//   yield takeLatest(authLogOut.type, handleAuthLogOut);
-// }
-import axios from 'axios';
+import axios from "axios";
 import { call, delay, put, takeLeading } from "redux-saga/effects";
-import {  loginFail, loginSuccess, logout,registerSuccess } from "../../redux/reducers/authReducer";
-
-
+import {
+  loginFail,
+  loginSuccess,
+  logout,
+  registerSuccess,
+} from "../../redux/reducers/authReducer";
 
 function* handleLogin(action) {
-
   try {
     const response = yield call(fetchAuth, action.payload);
 
+    localStorage.setItem("access_token", response.token);
 
-
-    localStorage.setItem('access_token', response.token)
-
-    const data = yield call(fetchUser,response.token);
+    const data = yield call(fetchUser, response.token);
     yield put(loginSuccess(data.user));
-
-
   } catch (error) {
-    console.log(error)
-    yield put(loginFail({
-
-    }))
+    console.log(error);
+    yield put(loginFail({}));
   }
-
 }
 
 async function fetchAuth(data) {
-
   try {
     const axiosClient = axios.create({
       baseURL: "https://fastfood314.up.railway.app/api/v1",
@@ -62,51 +38,40 @@ async function fetchAuth(data) {
   }
 }
 function* handleLogout(payload) {
-  yield delay(500)
-  
-  localStorage.removeItem('access_token');
+  yield delay(500);
 
+  localStorage.removeItem("access_token");
 }
-
-
-
 
 async function fetchUser(token) {
   if (!token) return;
 
   try {
-    const response = await axios.get(`https://fastfood314.up.railway.app/api/v1/auth/me`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+    const response = await axios.get(
+      `https://fastfood314.up.railway.app/api/v1/auth/me`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
-    });
+    );
     return response.data;
   } catch (error) {
     return [];
   }
 }
 
-
 function* handleRegister(action) {
-
   try {
     const response = yield call(fetchRegister, action.payload);
     yield put(registerSuccess(response));
-
-   
- 
-
   } catch (error) {
-    yield put(loginFail({
-
-    }))
+    yield put(loginFail({}));
   }
-
 }
 
 async function fetchRegister(data) {
-
   try {
     const axiosClient = axios.create({
       baseURL: "https://fastfood314.up.railway.app/api/v1",
@@ -124,7 +89,7 @@ async function fetchRegister(data) {
 }
 
 export default function* authSaga() {
-  yield takeLeading(loginSuccess.type, handleLogin)
-  yield takeLeading(logout.type, handleLogout)
-  yield takeLeading(registerSuccess.type, handleRegister)
+  yield takeLeading(loginSuccess.type, handleLogin);
+  yield takeLeading(logout.type, handleLogout);
+  yield takeLeading(registerSuccess.type, handleRegister);
 }

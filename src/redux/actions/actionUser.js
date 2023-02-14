@@ -41,7 +41,6 @@ function* workerAddUser(action) {
 
     try {
         const { data } = yield call(addNewUser, action.payload);
-        console.log('data', data)
 
         yield put(addUser(data));
 

@@ -10,6 +10,7 @@ import "../styles/all-foods.css";
 import "../styles/pagination.css";
 import { useSelector } from "react-redux";
 import Layout from "../components/Layout";
+import useDebounce from "../hooks/useDebounce";
 
 const AllFoods = () => {
   const products      = useSelector(state => state.product.productList);
@@ -17,16 +18,22 @@ const AllFoods = () => {
 
   const [pageNumber, setPageNumber] = useState(0);
 
-  const searchedProduct = products.filter((item) => {
+  const queryDebounce = useDebounce(searchTerm, 1000);
+
+
+
+    const searchedProduct = products.filter((item) => {
     if (searchTerm.value === "") {
       return item;
     }
-    if (item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+    if (item.title.toLowerCase().includes(queryDebounce.toLowerCase())) {
       return item;
     } else {
-      return console.log("not found");
+      return''
     }
   });
+
+
 
   const productPerPage = 12;
   const visitedPage = pageNumber * productPerPage;

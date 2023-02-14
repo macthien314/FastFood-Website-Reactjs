@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { categoryDeleted, getCategory } from "../../../redux/reducers/CategoryReducer";
 import { toast } from "react-toastify";
+import useDebounce from "../../../hooks/useDebounce";
 const Category = () => {
   const category = useSelector((state) => state.category.categoryList);
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Category = () => {
      },[dispatch])
 
   const [searchTerm, setSearchTerm] = useState("");
+  const queryDebounce = useDebounce(searchTerm, 1000);
 
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -26,7 +28,7 @@ const Category = () => {
     if (searchTerm.value === "") {
       return item;
     }
-    if (item.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+    if (item.name.toLowerCase().includes(queryDebounce.toLowerCase())) {
       return item;
     } else {
       return console.log("not found");

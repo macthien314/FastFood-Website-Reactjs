@@ -48,7 +48,7 @@ const AddCategory = () => {
 
       setTimeout(()=>{
         navigate("/category");
-      },100)
+      },1000)
     
   
     }

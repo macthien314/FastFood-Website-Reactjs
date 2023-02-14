@@ -12,7 +12,6 @@ import "../styles/product-details.css";
 
 import ProductCard from "../components/UI/product-card/ProductCard";
 import Layout from "../components/Layout";
-import { getProduct } from "../redux/reducers/ProductReducer";
 
 const FoodDetails = () => {
   const [tab, setTab] = useState("desc");

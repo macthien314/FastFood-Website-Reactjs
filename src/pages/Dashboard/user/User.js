@@ -10,6 +10,7 @@ import { getUser,userDeleted } from "../../../redux/reducers/UserReducer";
 
 import PageNotFound from "../pageNotFound/pageNotFound";
 import { toast } from "react-toastify";
+import useDebounce from "../../../hooks/useDebounce";
 const User = () => {
   const user = useSelector((state) => state.user.userList);
   const auth = useSelector((state) => state.auth.currentUser);
@@ -23,14 +24,14 @@ const User = () => {
   }, [dispatch]);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const queryDebounce = useDebounce(searchTerm, 1000);
 
   const [pageNumber, setPageNumber] = useState(0);
-
   const searchedUser = user?.filter((item) => {
     if (searchTerm?.value === "") {
       return item;
     }
-    if (item.username.toLowerCase().includes(searchTerm.toLowerCase())) {
+    if (item.username.toLowerCase().includes(queryDebounce.toLowerCase())) {
       return item;
     } else {
       return console.log("not found");
@@ -61,7 +62,7 @@ const User = () => {
   return (
    
     <Home>
-     {/* {auth && */}
+     {auth &&
       <div id="page-wrapper">
         <div className="row me-0">
           <div className="col-lg-12 ">
@@ -201,11 +202,11 @@ const User = () => {
             </div>
           </div>
           
-     {/* } */}
+     }
     
-   {/* {
+   {
     !auth &&  <PageNotFound></PageNotFound>
-   } */}
+   }
    
    
      

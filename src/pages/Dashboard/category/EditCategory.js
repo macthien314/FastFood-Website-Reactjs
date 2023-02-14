@@ -62,18 +62,10 @@ const EditCategory = () => {
 
       setTimeout(()=>{
         navigate("/category");
-      },100)
+      },500)
     
     }
   };
-
-  //     const addTask = (values) => {
-  // console.log(values);
-  //         dispatch(addCategory(
-  //             values
-  //         ))
-
-  //     }
 
   return (
     <Home>
