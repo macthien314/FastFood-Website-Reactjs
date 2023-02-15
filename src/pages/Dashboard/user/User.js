@@ -11,6 +11,7 @@ import { getUser,userDeleted } from "../../../redux/reducers/UserReducer";
 import PageNotFound from "../pageNotFound/pageNotFound";
 import { toast } from "react-toastify";
 import useDebounce from "../../../hooks/useDebounce";
+import Header from "../../../components/dashboard/header/Header";
 const User = () => {
   const user = useSelector((state) => state.user.userList);
   const auth = useSelector((state) => state.auth.currentUser);
@@ -65,9 +66,8 @@ const User = () => {
      {auth &&
       <div id="page-wrapper">
         <div className="row me-0">
-          <div className="col-lg-12 ">
-            <h1 className="page-header">User Page</h1>
-          </div>
+        <Header name = 'Users Page'></Header>
+
 
           <div className="col-lg-12">
             <div className="panel panel-info">

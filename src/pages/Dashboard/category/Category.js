@@ -8,6 +8,7 @@ import ReactPaginate from "react-paginate";
 import { categoryDeleted, getCategory } from "../../../redux/reducers/CategoryReducer";
 import { toast } from "react-toastify";
 import useDebounce from "../../../hooks/useDebounce";
+import Header from "../../../components/dashboard/header/Header";
 const Category = () => {
   const category = useSelector((state) => state.category.categoryList);
   const dispatch = useDispatch();
@@ -61,9 +62,7 @@ const Category = () => {
     <Home>
       <div id="page-wrapper">
         <div className="row me-0">
-          <div className="col-lg-12 ">
-            <h1 className="page-header">Category Page</h1>
-          </div>
+        <Header name = 'Catgegory Page'></Header>
 
           <div className="col-lg-12">
             <div className="panel panel-info">

@@ -18,6 +18,7 @@ import ReactPaginate from "react-paginate";
 import { getCategory } from "../../../redux/reducers/CategoryReducer";
 import { toast } from "react-toastify";
 import useDebounce from "../../../hooks/useDebounce";
+import Header from "../../../components/dashboard/header/Header";
 const Product = () => {
   const products = useSelector((state) => state.product.productList);
   const category = useSelector((state) => state.category.categoryList);
@@ -69,9 +70,8 @@ const Product = () => {
     <Home>
       <div id="page-wrapper">
         <div className="row me-0">
-          <div className="col-lg-12 ">
-            <h1 className="page-header">Product Page</h1>
-          </div>
+        <Header name = 'Products Page'></Header>
+
 
           <div className="col-lg-12">
             <div className="panel panel-info">

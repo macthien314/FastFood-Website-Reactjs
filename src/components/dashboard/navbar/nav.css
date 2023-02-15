@@ -5,14 +5,16 @@
 
 }
 .navbar-side .nav-item {
-    transition: .9s;
-    padding-left: 16px;
+    transition: .4s;
+    margin: 4px 10px;
+    padding: 0 10px;
     line-height: 46px;
     font-size: 16px;
 }
 .navbar-side .nav-item:hover{
-    background-color: white;
-    color: blue;
+    background-color: #adb5b1;
+    color: black;
+    border-radius: 5px;
  
-    padding: 1px;
+    
 }

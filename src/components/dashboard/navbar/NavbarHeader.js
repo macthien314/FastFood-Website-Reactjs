@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Nav, NavbarBrand, NavItem } from 'reactstrap';
 import { logout } from '../../../redux/reducers/authReducer';
 import './nav.css'
 const NavbarHeader = () => {
@@ -14,6 +14,7 @@ const NavbarHeader = () => {
     };
     return (
         <Nav className='navbar-side' vertical>
+         <NavbarBrand className='ms-3 mt-3 fs-3 fw-bold ' href="/">FastFood Admin</NavbarBrand>
             <Link to="/dashboard">
                 <NavItem >
 
