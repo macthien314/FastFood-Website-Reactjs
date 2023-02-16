@@ -55,10 +55,10 @@ const Home = () => {
   const [hotPizza, setHotPizza] = useState([]);
 
   useEffect(() => {
-    const filteredPizza = products.filter((item) => item.category === "Pizza");
+    const filteredPizza = products.filter((item) => item.category.name === "Pizza");
     const slicePizza = filteredPizza.slice(0, 4);
     setHotPizza(slicePizza);
-  }, []);
+  }, [products]);
 
   useEffect(() => {
     if (category === "ALL") {

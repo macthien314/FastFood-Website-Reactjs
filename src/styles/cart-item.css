@@ -33,6 +33,7 @@
   .delete__btn {
     font-size: 1.1rem;
     font-weight: 600;
+     cursor: pointer;
   }
   
   .cart__item {
@@ -43,6 +44,7 @@
   @media only screen and (max-width: 576px) {
     .delete__btn {
       font-size: 1rem;
+       cursor: pointer;
     }
   }
   

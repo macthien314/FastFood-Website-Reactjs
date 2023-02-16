@@ -11,10 +11,10 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const AddUser= () => {
+const AddUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const roleList = [
@@ -52,7 +52,7 @@ const AddUser= () => {
 
   const onSubmit = async (values) => {
     if (isValid) {
-      console.log('values',values)
+      console.log('values', values)
       dispatch(addUser(values));
       // console.log("send data to backend");
       // after successfuly submitted
@@ -89,8 +89,8 @@ const AddUser= () => {
               <div className="px-3 align-items-center pb-2">
                 <Col xs="12">
                   <Form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                  <Row>
-                    <Col xs="6">
+                    <Row>
+                      <Col xs="6">
                         <div className="form-group mt-4">
                           <label htmlFor="email">Email</label>
                           <input
@@ -164,13 +164,13 @@ const AddUser= () => {
                     >
                       Submit
                     </button>
-                    <a
+                    <Link
                       type="button"
-                      href="admin/items/"
+                      to={"/users"}
                       className="btn btn-light"
                     >
                       Cancel
-                    </a>
+                    </Link>
                   </Form>
                 </Col>
               </div>

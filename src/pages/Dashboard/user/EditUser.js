@@ -11,7 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EditUser = () => {
@@ -20,7 +20,7 @@ const EditUser = () => {
   const roleList = [
     { role: 'admin' },
     { role: 'user' },
-    { role: 'manager' },
+    { role: 'publisher' },
   ]
 
 
@@ -89,7 +89,7 @@ const EditUser = () => {
       <div id="page-wrapper">
         <Row className=" me-0">
           <div className="col-lg-12 ">
-            <h1 className="page-header">Add User</h1>
+            <h1 className="page-header">Edit User</h1>
           </div>
         </Row>
 
@@ -180,13 +180,13 @@ const EditUser = () => {
                     >
                       Submit
                     </button>
-                    <a
+                    <Link
                       type="button"
-                      href="admin/items/"
+                      to={"/users"}
                       className="btn btn-light"
                     >
                       Cancel
-                    </a>
+                    </Link>
                   </Form>
                 </Col>
               </div>

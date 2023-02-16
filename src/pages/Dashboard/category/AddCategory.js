@@ -3,15 +3,12 @@ import { useDispatch } from "react-redux";
 import { Col, Form, Row } from "reactstrap";
 import Home from "../home/Home";
 import "./category.css";
-import {
-  addCategory,
-  
-} from "../../../redux/reducers/CategoryReducer";
+import { addCategory } from "../../../redux/reducers/CategoryReducer";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const AddCategory = () => {
@@ -27,7 +24,7 @@ const AddCategory = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid},
+    formState: { errors, isValid },
     reset,
   } = useForm({
     resolver: yupResolver(schemaValidation),
@@ -44,13 +41,11 @@ const AddCategory = () => {
       reset({
         name: "",
       });
-      toast.success('Thêm loại sản phẩm thành công')
+      toast.success("Thêm loại sản phẩm thành công");
 
-      setTimeout(()=>{
+      setTimeout(() => {
         navigate("/category");
-      },1000)
-    
-  
+      }, 1000);
     }
   };
 
@@ -101,13 +96,13 @@ const AddCategory = () => {
                     >
                       Submit
                     </button>
-                    <a
+                    <Link
                       type="button"
-                      href="admin/items/"
+                      to={"/category"}
                       className="btn btn-light"
                     >
                       Cancel
-                    </a>
+                    </Link>
                   </Form>
                 </Col>
               </div>

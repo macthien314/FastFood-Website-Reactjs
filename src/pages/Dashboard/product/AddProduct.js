@@ -10,7 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from "yup";
 import { addProduct } from "../../../redux/reducers/ProductReducer";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 const AddProduct = () => {
     const dispatch = useDispatch();
@@ -266,13 +266,13 @@ const AddProduct = () => {
                                         <button type="submit" className="btn btn-primary me-2">
                                             Submit
                                         </button>
-                                        <a
+                                        <Link
                                             type="button"
-                                            href="admin/items/"
+                                            to={"/product"}
                                             className="btn btn-light"
                                         >
                                             Cancel
-                                        </a>
+                                        </Link>
                                     </Form>
                                 </Col>
                             </div>

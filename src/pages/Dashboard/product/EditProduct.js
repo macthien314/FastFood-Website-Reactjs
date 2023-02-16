@@ -8,9 +8,9 @@ import { getCategory } from "../../../redux/reducers/CategoryReducer";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from "yup";
-import { addProduct, getProduct, updateProduct } from "../../../redux/reducers/ProductReducer";
+import {  getProduct} from "../../../redux/reducers/ProductReducer";
 import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 const EditProduct = () => {
     const dispatch = useDispatch();
@@ -274,13 +274,13 @@ const EditProduct = () => {
                                         <button type="submit" className="btn btn-primary me-2">
                                             Submit
                                         </button>
-                                        <a
+                                        <Link
                                             type="button"
-                                            href="admin/items/"
+                                            to={"/product"}
                                             className="btn btn-light"
                                         >
                                             Cancel
-                                        </a>
+                                        </Link>
                                     </Form>
                                 </Col>
                             </div>

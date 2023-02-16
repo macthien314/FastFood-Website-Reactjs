@@ -10,7 +10,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EditCategory = () => {
@@ -37,7 +37,7 @@ const EditCategory = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid},
+    formState: { errors, isValid },
     // watch,
     reset,
 
@@ -60,10 +60,10 @@ const EditCategory = () => {
       });
       toast.success('Chỉnh sửa loại sản phẩm thành công')
 
-      setTimeout(()=>{
+      setTimeout(() => {
         navigate("/category");
-      },500)
-    
+      }, 500)
+
     }
   };
 
@@ -114,13 +114,13 @@ const EditCategory = () => {
                     >
                       Submit
                     </button>
-                    <a
+                    <Link
                       type="button"
-                      href="admin/items/"
+                      to={"/category"}
                       className="btn btn-light"
                     >
                       Cancel
-                    </a>
+                    </Link>
                   </Form>
                 </Col>
               </div>
