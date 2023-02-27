@@ -18,6 +18,8 @@ import ReactPaginate from "react-paginate";
 import { getCategory } from "../../../redux/reducers/CategoryReducer";
 import { toast } from "react-toastify";
 import useDebounce from "../../../hooks/useDebounce";
+import "../../../styles/pagination-dashboard.css";
+
 const Product = () => {
   const products = useSelector((state) => state.product.productList);
   const category = useSelector((state) => state.category.categoryList);
@@ -210,7 +212,7 @@ const Product = () => {
                 onPageChange={changePage}
                 previousLabel={"Prev"}
                 nextLabel={"Next"}
-                containerClassName=" paginationBttns "
+                containerClassName=" paginationBttnss "
               />
             </div>
           </div>

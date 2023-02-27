@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 import ReactPaginate from "react-paginate";
 import { getUser,userDeleted } from "../../../redux/reducers/UserReducer";
+import "../../../styles/pagination-dashboard.css";
 
 import PageNotFound from "../pageNotFound/pageNotFound";
 import { toast } from "react-toastify";
@@ -193,7 +194,7 @@ const User = () => {
                     onPageChange={changePage}
                     previousLabel={"Prev"}
                     nextLabel={"Next"}
-                    containerClassName=" paginationBttns "
+                    containerClassName=" paginationBttnss "
                   />
                 </div>
               </div>

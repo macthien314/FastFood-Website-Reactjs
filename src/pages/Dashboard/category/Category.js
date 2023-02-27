@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, Table, UncontrolledDropdown } from "reactstrap";
 import Home from "../home/Home";
 import "./category.css"
+import "../../../styles/pagination-dashboard.css";
+
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { categoryDeleted, getCategory } from "../../../redux/reducers/CategoryReducer";
@@ -181,7 +183,7 @@ const Category = () => {
                     onPageChange={changePage}
                     previousLabel={"Prev"}
                     nextLabel={"Next"}
-                    containerClassName=" paginationBttns "
+                    containerClassName=" paginationBttnss "
                   />
                 </div>
               </div>
