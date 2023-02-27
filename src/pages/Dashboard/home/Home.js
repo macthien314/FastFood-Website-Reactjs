@@ -1,22 +1,34 @@
 import React from 'react';
-import { Col, Row } from 'reactstrap';
+import { useEffect } from 'react';
 import Navbar from '../../../components/dashboard/navbar/NavbarHeader';
-// import Sidebar from '../../../components/dashboard/header/Header';
-// import "./home.scss";
-const Home = ({ children }) => {
+import Sidebar from '../../../components/dashboard/sidebar/Sidebar';
+import "./home.css";
+const Home = ({ children, ...props }) => {
+  useEffect(() => {
+
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".sidebarBtn");
+    sidebarBtn.onclick = function () {
+      sidebar.classList.toggle("active");
+      if (sidebar.classList.contains("active")) {
+        sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+      } else
+        sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+    }
+
+  })
   return (
-    <div className="w-100 wapper">
-      {/* <Sidebar /> */}
-      <Row className='w-100'>
-        <Col xs="2" className='vh-100'>
-          <Navbar />
-        </Col>
-        <Col xs="10" className='p-0'>
-          {children}
-        </Col>
-      </Row>
+    <div className="w-100 ">
+
+      <Sidebar />
+      <section className="home-section">
+        <Navbar name = {props.name}/>
+        {children}
+     
+
+      </section>
     </div>
-   
+
   );
 };
 

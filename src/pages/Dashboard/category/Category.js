@@ -8,7 +8,6 @@ import ReactPaginate from "react-paginate";
 import { categoryDeleted, getCategory } from "../../../redux/reducers/CategoryReducer";
 import { toast } from "react-toastify";
 import useDebounce from "../../../hooks/useDebounce";
-import Header from "../../../components/dashboard/header/Header";
 const Category = () => {
   const category = useSelector((state) => state.category.categoryList);
   const dispatch = useDispatch();
@@ -59,12 +58,10 @@ const Category = () => {
  
   }
   return (
-    <Home>
+    <Home name='Category Pages'>
       <div id="page-wrapper">
-        <div className="row me-0">
-        <Header name = 'Catgegory Page'></Header>
-
-          <div className="col-lg-12">
+        <div className="row m-0 pt-5">
+          <div className="col-lg-12 pt-5">
             <div className="panel panel-info">
               <div className="panel-heading d-flex justify-content-between align-items-center px-3">
                 Search &amp; Filter
@@ -101,7 +98,7 @@ const Category = () => {
                          type="text"
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                          className="form-control me-1"
+                          className="form-control me-2"
                           name="search"
                           placeholder="Search for..."
                         />

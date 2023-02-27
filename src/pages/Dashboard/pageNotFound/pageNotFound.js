@@ -2,7 +2,7 @@ import React from 'react';
 
 const pageNotFound = () => {
     return (
-        <div className='text-center fs-1   mt-5'>
+        <div className='text-center fs-1  pt-4'>
             <span className='text-danger'>Chỉ có Amin mới được truy cập </span>
 
            <br/> Admin: admin@gmail.com

@@ -11,7 +11,6 @@ import { getUser,userDeleted } from "../../../redux/reducers/UserReducer";
 import PageNotFound from "../pageNotFound/pageNotFound";
 import { toast } from "react-toastify";
 import useDebounce from "../../../hooks/useDebounce";
-import Header from "../../../components/dashboard/header/Header";
 const User = () => {
   const user = useSelector((state) => state.user.userList);
   const auth = useSelector((state) => state.auth.currentUser);
@@ -62,14 +61,13 @@ const User = () => {
 
   return (
    
-    <Home>
+    <Home name='Users Page'>
      {auth &&
       <div id="page-wrapper">
-        <div className="row me-0">
-        <Header name = 'Users Page'></Header>
+        <div className="row m-0 pt-5">
 
 
-          <div className="col-lg-12">
+          <div className="col-lg-12 pt-5">
             <div className="panel panel-info">
               <div className="panel-heading d-flex justify-content-between align-items-center px-3">
                 Search &amp; Filter
@@ -106,7 +104,7 @@ const User = () => {
                          type="text"
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                          className="form-control me-1"
+                          className="form-control me-2"
                           name="search"
                           placeholder="Search for..."
                         />
