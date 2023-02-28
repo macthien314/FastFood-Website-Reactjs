@@ -85,16 +85,10 @@ const EditUser = () => {
   };
 
   return (
-    <Home>
+    <Home name='Edit Users'>
       <div id="page-wrapper">
-        <Row className=" me-0">
-          <div className="col-lg-12 ">
-            <h1 className="page-header">Edit User</h1>
-          </div>
-        </Row>
-
-        <Col xs="12">
-          <div className="panel panel-info">
+        <Col xs="12 pt-5">
+          <div className="panel panel-info pt-5">
             <div className="panel-heading fs-4">Form</div>
             <div className="panel-body">
               <div className="px-3 align-items-center pb-2">
