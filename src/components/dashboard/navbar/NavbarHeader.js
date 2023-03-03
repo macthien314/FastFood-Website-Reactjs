@@ -1,22 +1,24 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../../redux/reducers/authReducer';
+import { logout  } from '../../../redux/reducers/authReducer';
 import './nav.css'
 import NavBrand from '../header/Header';
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const NavbarHeader = (props) => {
-
-  const user = useSelector(state => state.auth.currentUser);
   const dispatch = useDispatch();
+ 
+  const user = useSelector(state => state.auth.currentUser);
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
+
+ 
 
   return (
     <nav>

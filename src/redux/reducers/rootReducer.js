@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+// import { configureStore } from "@reduxjs/toolkit";
 import cartSlice from "../../store/shopping-cart/cartSlice";
 import cartUiSlice from "../../store/shopping-cart/cartUiSlice";
 import logger from "redux-logger"
@@ -14,6 +14,8 @@ import rootSaga from '../saga/rootSaga';
 import createSagaMiddleware from 'redux-saga';
 import authReducer from "./authReducer";
 
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage' 
 // import authReducer from "../../store/auth/auth-slice";
 const sagaMiddleware = createSagaMiddleware();
 
@@ -28,14 +30,22 @@ const reducer = combineReducers({
 
 })
 
-const store = configureStore(
-  {
-    reducer,
-    middleware: (gDM) => gDM().concat( sagaMiddleware)
-  });
 
+
+
+const persistConfig = {
+	key: "root",
+	storage,
+};
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+
+
+const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));
 
 
 //gọi saga
 sagaMiddleware.run(rootSaga);
+export const persistor = persistStore(store);
+
 export default store;

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "../components/Layout";
 import useToggleValue from "../hooks/useToggleValue";
@@ -15,17 +15,14 @@ import { toast } from "react-toastify";
 
 
 
-
-
-
 const Login = () => {
   const loginNameRef = useRef();
   const loginPasswordRef = useRef();
   const navigate = useNavigate();
 
-  
+  const user = useSelector((state) => state.user.userList);
   const schema = yup.object({
-    email: yup.string().email("").required("This field is required"),
+    email: yup.string().email("phải có định dạng @gmail.com").required("This field is required"),
     password: yup
       .string()
       .required("This field is required")
@@ -45,18 +42,26 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async (values) => {
+  const checkUser = user.filter((item)=> item.email === values.email);
+
     if (isValid) {
-      dispatch(loginSuccess(values));
-      // console.log("send data to backend");
-      reset({
-        email: '',
-        password: '',
-      });
-
-      toast.success('Đăng nhập thành công');
-      navigate("/");
-
-    }
+          if(checkUser.length === 0) {
+            toast.error('Email chưa được đăng ký');
+          }
+          else{
+            dispatch(loginSuccess(values));
+            reset({
+              email: '',
+              password: '',
+            });
+            toast.success('Đăng nhập thành công');
+            navigate("/");
+          }
+         
+          
+        }
+       
+     
   };
 
 

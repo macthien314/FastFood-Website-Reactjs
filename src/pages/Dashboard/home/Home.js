@@ -2,8 +2,10 @@ import React from 'react';
 import { useEffect } from 'react';
 import Navbar from '../../../components/dashboard/navbar/NavbarHeader';
 import Sidebar from '../../../components/dashboard/sidebar/Sidebar';
+
 import "./home.css";
 const Home = ({ children, ...props }) => {
+
   useEffect(() => {
 
     let sidebar = document.querySelector(".sidebar");

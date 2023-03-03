@@ -18,7 +18,7 @@ function* workerGetProduct() {
 
 async function fetchProduct() {
     try {
-        const response = await axios.get(`https://fastfood314.up.railway.app/api/v1/product?limit=25`);
+        const response = await axios.get(`https://fastfood314.up.railway.app/api/v1/product`);
         return response.data;
     } catch (error) {
         return [];

@@ -61,9 +61,9 @@ const User = () => {
   }
 
   return (
-   
+    
     <Home name='Users Page'>
-     {auth &&
+    {!auth ? <PageNotFound></PageNotFound> : 
       <div id="page-wrapper">
         <div className="row m-0 pt-5">
 
@@ -201,15 +201,14 @@ const User = () => {
             </div>
           </div>
           
-     }
+    }
     
-   {
-    !auth &&  <PageNotFound></PageNotFound>
-   }
+  
    
    
      
     </Home>
+    
   );
 };
 

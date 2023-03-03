@@ -1,9 +1,9 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./sidebar.css"
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../redux/reducers/authReducer';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 const Header = (props) => {
    
     const dispatch = useDispatch();
@@ -12,6 +12,20 @@ const Header = (props) => {
         dispatch(logout());
         navigate("/");
     };
+    
+    // useEffect(()=>{
+      
+    //   const navItems = document.querySelectorAll('.nav-links li a');
+    //   [...navItems].forEach((item) => item.addEventListener('click', handleActiveNav));
+    //   function handleActiveNav(e) {
+   
+    //     [...navItems].forEach(item => item.classList.remove("active"));
+    //     e.currentTarget.classList.add('active');
+     
+
+    //   }
+    //   return () => [...navItems].forEach((item) => item.removeEventListener('click', handleActiveNav));
+    // },[])
 
     return (
      
@@ -21,30 +35,30 @@ const Header = (props) => {
           <span className="logo_name">FastFood</span>
         </div>
         <ul className="nav-links">
-          <li>
+          <li >
             {/* <Link to="/dashboard" className="active"> */}
-            <Link to="/dashboard" className="">
+            <NavLink to="/dashboard" className=''>
               <i className="bx bx-grid-alt" />
               <span className="links_name">Dashboard</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/product">
+            <NavLink to="/product" className=''>
               <i className="bx bx-box" />
               <span className="links_name">Product</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/category">
+            <NavLink to="/category" className=''>
               <i className="bx bx-list-ul" />
               <span className="links_name">Category</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/users">
+            <NavLink to="/users" className=''>
               <i className="bx bx-user" />
               <span className="links_name">User</span>
-            </Link>
+            </NavLink>
           </li>
           {/* <li>
             <a href="#">
