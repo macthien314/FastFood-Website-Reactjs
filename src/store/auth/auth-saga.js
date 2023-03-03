@@ -44,6 +44,7 @@ async function fetchAuth(data) {
     const responses = await axiosClient.post(`/auth/login`, data);
     return responses.data;
   } catch (error) {
+
     return error.response.data.message;
 
   }
