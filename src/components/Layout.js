@@ -5,9 +5,9 @@ import Carts from "./UI/cart/Carts.js";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../redux/reducers/ProductReducer";
 import { getCategory } from "../redux/reducers/CategoryReducer";
+import { getUser } from "../redux/reducers/UserReducer";
 
 const Layout = ({children}) => {
-  // const {query}      = useSelector(state => state.product.productList);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProduct());

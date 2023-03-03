@@ -21,6 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.userList);
+  console.log('user',user)
   const schema = yup.object({
     email: yup.string().email("phải có định dạng @gmail.com").required("This field is required"),
     password: yup
@@ -42,13 +43,13 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async (values) => {
-  const checkUser = user.filter((item)=> item.email === values.email);
+  // const checkUser = user.filter((item)=> item.email === values.email);
 
     if (isValid) {
-          if(checkUser.length === 0) {
-            toast.error('Email chưa được đăng ký');
-          }
-          else{
+          // if(checkUser.length === 0) {
+          //   toast.error('Email chưa được đăng ký');
+          // }
+          // else{
             dispatch(loginSuccess(values));
             reset({
               email: '',
@@ -59,7 +60,7 @@ const Login = () => {
           }
          
           
-        }
+        // }
        
      
   };

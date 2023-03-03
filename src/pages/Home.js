@@ -50,14 +50,14 @@ const featureData = [
 
 const Home = () => {
   const products = useSelector((state) => state.product.productList);
-  console.log(products)
+  console.log( 'products', products)
   const [category, setCategory] = useState("ALL");
   const [allProducts, setAllProducts] = useState(products);
   const [hotPizza, setHotPizza] = useState([]);
 
   useEffect(() => {
     const filteredPizza = products.filter(
-      (item) => item.category.name === "Pizza"
+      (item) => item.category_id === "63c16ba29be9da43204665ff"
     );
     const slicePizza = filteredPizza.slice(0, 4);
     setHotPizza(slicePizza);
@@ -70,7 +70,7 @@ const Home = () => {
 
     if (category === "BURGER") {
       const filteredProducts = products.filter(
-        (item) => item.category.name === "Burger"
+        (item) => item.category_id === "63c16b43f307c9215fab261f"
       );
 
       setAllProducts(filteredProducts);
@@ -78,7 +78,7 @@ const Home = () => {
 
     if (category === "PIZZA") {
       const filteredProducts = products.filter(
-        (item) => item.category.name === "Pizza"
+        (item) => item.category_id === "63c16ba29be9da43204665ff"
       );
 
       setAllProducts(filteredProducts);
@@ -86,7 +86,7 @@ const Home = () => {
 
     if (category === "BREAD") {
       const filteredProducts = products.filter(
-        (item) => item.category.name === "Bread"
+        (item) => item.category_id === "63c16bddb955cdda7d1aace7"
       );
 
       setAllProducts(filteredProducts);
