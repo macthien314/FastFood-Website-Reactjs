@@ -9,9 +9,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "../components/Layout";
-import useToggleValue from "../hooks/useToggleValue";
-import { loginSuccess } from "../redux/reducers/authReducer";
-import { toast } from "react-toastify";
+// import useToggleValue from "../hooks/useToggleValue";
+import { login } from "../redux/reducers/authReducer";
+import { useEffect } from "react";
 
 
 
@@ -19,9 +19,7 @@ const Login = () => {
   const loginNameRef = useRef();
   const loginPasswordRef = useRef();
   const navigate = useNavigate();
-
-  const user = useSelector((state) => state.user.userList);
-  console.log('user',user)
+  const isLogin = useSelector(state => state.auth.isLoggedIn);
   const schema = yup.object({
     email: yup.string().email("phải có định dạng @gmail.com").required("This field is required"),
     password: yup
@@ -38,32 +36,34 @@ const Login = () => {
     resolver: yupResolver(schema),
     mode: "onSubmit",
   });
-  const { value: showPassword, handleToggleValue: handleTogglePassword } =
-    useToggleValue();
+  // const { value: showPassword, handleToggleValue: handleTogglePassword } =
+  //   useToggleValue();
   const dispatch = useDispatch();
 
   const onSubmit = async (values) => {
   // const checkUser = user.filter((item)=> item.email === values.email);
 
     if (isValid) {
-          // if(checkUser.length === 0) {
-          //   toast.error('Email chưa được đăng ký');
-          // }
-          // else{
-            dispatch(loginSuccess(values));
+    
+            dispatch(login(values));
             reset({
               email: '',
               password: '',
-            });
-            toast.success('Đăng nhập thành công');
-            navigate("/");
-          }
-         
-          
-        // }
-       
-     
+            }); 
+           
+          }     
   };
+
+  useEffect(()=>{
+    if(isLogin){
+    
+    
+      navigate('/')
+     }else{
+      navigate('/login')
+
+     }
+  },[isLogin,navigate])
 
 
 

@@ -119,29 +119,29 @@ const Header = () => {
                     {user?.username || 'Header'}
                   </DropdownItem>
                   {!isLoggedIn &&
-                    <Link to='/login'>
-                      <DropdownItem style={{ height: '7vh' }} className=" d-flex align-items-center gap-1  py-4 " >
-                       <i className="ri-user-fill mb-1"></i> Login
+                    <Link to='/login' style={{lineHeight:'40px'}}>
+                      <DropdownItem  className=" d-flex align-items-center gap-1  pe-2 " >
+                       <i className="ri-user-fill "></i> Login
                       </DropdownItem>
                     </Link>
                   }
 
                   {isLoggedIn &&
-                  <Link to='/dashboard'>
-                    <DropdownItem style={{ height: '7vh' }} className=" d-flex align-items-center gap-1  py-4" >
-                      <i className="ri-user-fill mb-1"></i>DashBoard
+                  <Link to='/dashboard' style={{lineHeight:'40px'}}>
+                    <DropdownItem  className=" d-flex align-items-center gap-1  pe-2" >
+                      <i className="ri-user-fill "></i>DashBoard
 
                     </DropdownItem>
                   </Link>
                 }
                 {!isLoggedIn &&
-                  <Link to='/register'>
-                  <DropdownItem style={{ height: '7vh' }} className=" d-flex align-items-center gap-1 py-4">
+                  <Link to='/register' style={{lineHeight:'40px'}}>
+                  <DropdownItem  className=" d-flex align-items-center gap-1 pe-2">
                     <i className="ri-settings-2-fill"></i>Register
                   </DropdownItem>
                   </Link>
                 }
-                  <DropdownItem onClick={handleLogout} style={{ height: '7vh' }} className=" d-flex align-items-center gap-1  py-4">
+                  <DropdownItem onClick={handleLogout} style={{lineHeight:'40px'}} className=" d-flex align-items-center gap-1  pe-2">
                     <i className="ri-logout-box-r-line"></i>Logout
                   </DropdownItem>
                 </DropdownMenu>

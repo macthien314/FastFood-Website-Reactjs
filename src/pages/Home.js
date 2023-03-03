@@ -50,7 +50,6 @@ const featureData = [
 
 const Home = () => {
   const products = useSelector((state) => state.product.productList);
-  console.log( 'products', products)
   const [category, setCategory] = useState("ALL");
   const [allProducts, setAllProducts] = useState(products);
   const [hotPizza, setHotPizza] = useState([]);

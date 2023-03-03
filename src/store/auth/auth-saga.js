@@ -1,23 +1,34 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import { call, delay, put, takeLeading } from "redux-saga/effects";
 import {
+  login,
   loginFail,
   loginSuccess,
   logout,
   registerSuccess,
 } from "../../redux/reducers/authReducer";
 
+
 function* handleLogin(action) {
+
   try {
     const response = yield call(fetchAuth, action.payload);
+    if(response.success === true){
+      localStorage.setItem("access_token", response.token);
 
-    localStorage.setItem("access_token", response.token);
-
-    const data = yield call(fetchUser, response.token);
-    yield put(loginSuccess(data.user));
+      const data = yield call(fetchUser, response.token);
+      yield put(loginSuccess(data.user));
+      toast.success('Đăng nhập thành công');
+    }
+    else{
+      toast.error(response);
+      yield put(loginFail(response));
+    }
+   
   } catch (error) {
-    console.log(error);
-    yield put(loginFail({}));
+    console.log('error',error);
+   
   }
 }
 
@@ -31,10 +42,10 @@ async function fetchAuth(data) {
       },
     });
     const responses = await axiosClient.post(`/auth/login`, data);
-
     return responses.data;
   } catch (error) {
-    return [];
+    return error.response.data.message;
+
   }
 }
 function* handleLogout(payload) {
@@ -89,7 +100,7 @@ async function fetchRegister(data) {
 }
 
 export default function* authSaga() {
-  yield takeLeading(loginSuccess.type, handleLogin);
+  yield takeLeading(login.type, handleLogin);
   yield takeLeading(logout.type, handleLogout);
   yield takeLeading(registerSuccess.type, handleRegister);
 }
