@@ -32,7 +32,6 @@ const AddProduct = () => {
         image01: Yup.string().required("Ảnh không được rỗng"),
         image02: Yup.string().required("Ảnh không được rỗng"),
         image03: Yup.string().required("Ảnh không được rỗng"),
-        // category: Yup.string().required("Ảnh không được rỗng"),
     })
     const {
         register,
@@ -47,7 +46,7 @@ const AddProduct = () => {
             title: "",
             price: "",
             desc: "",
-            category_id: "",
+            category_id: "63c16b43f307c9215fab261f",
             category: {},
         },
 
@@ -65,18 +64,16 @@ const AddProduct = () => {
         formData.append('price', values.price)
         formData.append('category_id', values.category_id)
 
-        // formData.append('category', JSON.stringify(values.category))
-
-
-
-
-        // console.log('formData', [...formData])
-
-        // values.image01 = image1;
-        // values.image02 = image2;
-        // values.image03 = image3;
 
         if (isValid) {
+            reset({
+                title: "",
+                price: "",
+                desc: "",
+                image01: "",
+                image02: "",
+                image03: "",
+            });
             try {
                 const token = localStorage.getItem('access_token');
                 const response = await axios.post(`https://fastfood314.up.railway.app/api/v1/product/add`, formData, {
@@ -86,29 +83,22 @@ const AddProduct = () => {
                     },
 
                 });
-                dispatch(addProduct(response.data.data))
+                if (response.data.success === true) {
+                    navigate("/product");
+                    toast.success('Thêm loại sản phẩm thành công');
+                    dispatch(addProduct(response.data.data));
+
+                }
+                else {
+                    toast.error('Thêm loại sản phẩm thất bại');
+                    navigate("/add-product");
+                }
             } catch (error) {
-                console.log('error', error)
 
             }
-            console.log("send data to backend");
-            // after successfuly submitted
-            // then reset form
-            reset({
-                title: "",
-                price: "",
-                desc: "",
-                image01: "",
-                image02: "",
-                image03: "",
-                // category: {},
 
-            });
-            toast.success('Thêm loại sản phẩm thành công')
+            
 
-            setTimeout(() => {
-                navigate("/product");
-            }, 100)
         }
     }
 
@@ -129,7 +119,7 @@ const AddProduct = () => {
     return (
         <Home name='Add product'>
             <div id="page-wrapper">
-            
+
 
                 <Col xs="12 pt-5">
                     <div className="panel panel-info pt-5">

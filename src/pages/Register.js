@@ -36,12 +36,8 @@ const Register = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async (values) => {
-    // console.log("onSubmit ~ values", values);
     if (isValid) {
       dispatch(registerSuccess(values));
-      console.log("send data to backend");
-      // after successfuly submitted
-      // then reset form
       reset({
 
       });
@@ -96,6 +92,11 @@ const Register = () => {
                       <div className="text-danger">{errors.password?.message}</div>
                     )}
                 </div>
+                <input
+                    type="hidden"
+                    value='https://res.cloudinary.com/drayatc08/image/upload/v1677931922/fastfood/user_l4jdcu.png'
+                    {...register("image")}
+                    />
                 <button type="submit" className="addTOCart__btn">
                   Sign Up
                 </button>

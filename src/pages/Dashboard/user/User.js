@@ -6,7 +6,7 @@ import "./user.css"
 import { Link } from "react-router-dom";
 
 import ReactPaginate from "react-paginate";
-import { getUser,userDeleted } from "../../../redux/reducers/UserReducer";
+import { checkFail, getUser,userDeleted } from "../../../redux/reducers/UserReducer";
 import "../../../styles/pagination-dashboard.css";
 
 import PageNotFound from "../pageNotFound/pageNotFound";
@@ -29,6 +29,7 @@ const User = () => {
 
   const [pageNumber, setPageNumber] = useState(0);
   const searchedUser = user?.filter((item) => {
+   if(user){
     if (searchTerm?.value === "") {
       return item;
     }
@@ -37,6 +38,11 @@ const User = () => {
     } else {
       return console.log("not found");
     }
+   }
+   else{
+    return []
+   }
+   
   });
 
   const userPerPage = 5;
@@ -76,9 +82,9 @@ const User = () => {
                   <i className="ri-refresh-line"></i>
                 </a>
               </div>
-              <div className="panel-body">
+              <div className="panel-body body-top">
                 <div className="row align-items-center pb-2">
-                  <div className="status-list col-sm-6 px-4">
+                  <div className="status-list col-md-6 col-sm-12 px-4">
                     <a
                       className="btn m-b-sm btn-success btn-sm"
                       href="admin123/item/all"
@@ -98,7 +104,7 @@ const User = () => {
                       INACTIVE (0)
                     </a>
                   </div>
-                  <div className="col-sm-6">
+                  <div className="col-md-6 col-sm-12">
                     <form action="admin123/item/all" method="GET">
                       <div className="input-group">
                         <input
@@ -115,11 +121,7 @@ const User = () => {
                             Search
                           </button>
                         </span>
-                        <span className="input-group-btn me-1">
-                          <button className="btn btn-success text-color" type="button">
-                            <a href="admin123/group/all">Clear</a>
-                          </button>
-                        </span>
+                      
                       </div>
                     </form>
                   </div>
@@ -140,7 +142,7 @@ const User = () => {
                 </DropdownMenu>
               </UncontrolledDropdown>
 
-              <Link to='/add-user'>
+              <Link onClick={()=>{dispatch(checkFail());}} to='/add-user'>
                 <Button color="success" outline>Add user</Button>
               </Link>
 
@@ -174,8 +176,9 @@ const User = () => {
                           <td>{items.email}</td>
                           <td title={items.password}>{items.password.slice(0,10) + '...'}</td>
                           <td>{items.role}</td>
+                          <td><img style={{width:'50px',height:'50px'}} src={items.image} alt={items.username} /></td>
                           <td>
-                            <Link to={`/edit-user/${items._id}`} className="btn btn-outline-success me-1 pd-0"> <i className="ri-edit-box-line"></i></Link>
+                            <Link onClick={()=>{dispatch(checkFail());}} to={`/edit-user/${items._id}`} className="btn btn-outline-success me-1 pd-0"> <i className="ri-edit-box-line"></i></Link>
                             <Link onClick={()=>{hangdleDelete(items._id)}} className="btn btn-outline-danger"><i className="ri-delete-bin-5-line"></i></Link>
                           </td>
                         </tr>)

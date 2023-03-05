@@ -30,10 +30,10 @@ const Header = (props) => {
     return (
      
         <div className="sidebar">
-        <div className="logo-details">
+        <Link to='/home' className="logo-details">
           <i className="bx bxl-c-plus-plus" />
           <span className="logo_name">FastFood</span>
-        </div>
+        </Link>
         <ul className="nav-links">
           <li >
             {/* <Link to="/dashboard" className="active"> */}

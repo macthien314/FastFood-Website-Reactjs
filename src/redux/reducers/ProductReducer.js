@@ -27,7 +27,7 @@ const productSlice = createSlice({
       const { id, title } = action.payload;
       const existingCategory = state.productList.find((product) => product.id === id);
       if(existingCategory) {
-        existingCategory.title = title;
+        state.productList = [...state.productList, existingCategory] 
       }
     },
     productDeleted(state, action) {

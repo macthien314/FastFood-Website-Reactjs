@@ -49,12 +49,8 @@ const EditCategory = () => {
 
   const onSubmit = async (values) => {
 
-    console.log("onSubmit ~ values", values);
     if (isValid) {
       dispatch(updateCategory(values));
-      console.log("send data to backend");
-      // after successfuly submitted
-      // then reset form
       reset({
         name: "",
       });

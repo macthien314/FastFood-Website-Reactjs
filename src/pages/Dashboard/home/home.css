@@ -386,14 +386,36 @@ nav .profile-details i {
     margin-bottom: 30px;
   }
   .home-content .sales-boxes .top-sales {
-    margin: 0;
+    margin: 0 20px;
   }
+  .home-content .sales-boxes .box {
+    width: 94%;
+}
 }
 @media (max-width: 1000px) {
   .overview-boxes .box {
     width: calc(100% / 2 - 15px);
     margin-bottom: 15px;
   }
+}
+@media (max-width: 768px) {
+ 
+  .panel-info .panel-body .status-list {
+   margin: 18px 0;
+  }
+  .panel-info .panel-body form{
+   margin: 0 12px 18px;
+       
+  }
+  
+ 
+}
+
+@media only screen and (max-width: 704px){
+#page-wrapper .panel-info .body-top {
+  overflow-x: hidden;
+
+}
 }
 @media (max-width: 700px) {
   nav .sidebar-button .dashboard,
@@ -409,6 +431,7 @@ nav .profile-details i {
     width: 560px;
   }
 }
+
 @media (max-width: 550px) {
   .overview-boxes .box {
     width: 100%;
@@ -417,6 +440,9 @@ nav .profile-details i {
   .sidebar.active ~ .home-section nav .profile-details {
     display: none;
   }
+  .home-content .sales-boxes .box {
+    width: 92%;
+}
 }
 @media (max-width: 400px) {
   .sidebar {
@@ -474,6 +500,8 @@ a:hover {
   padding: 0px;
   border-color: #bce8f1;
 }
+
+
 
 
 

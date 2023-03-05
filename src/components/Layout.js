@@ -12,6 +12,7 @@ const Layout = ({children}) => {
   useEffect(() => {
     dispatch(getProduct());
     dispatch(getCategory());
+    dispatch(getUser());
   }, [dispatch]);
   const showCart = useSelector((state) => state.cartUi.cartIsVisible);
  

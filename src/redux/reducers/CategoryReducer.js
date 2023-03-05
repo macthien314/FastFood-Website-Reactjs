@@ -13,11 +13,9 @@ const categorySlice = createSlice({
       categoryList: action.payload
     }),
     addCategory: (state, action) => {
-      console.log('action.payload',action.payload)
       // state.categoryList.push(action.payload)
     },
     updateCategory: (state, action) => {
-      console.log(' action.payload', action.payload)
       const { id, name } = action.payload;
       const existingCategory = state.categoryList.find((category) => category.id === id);
       if(existingCategory) {
@@ -25,8 +23,7 @@ const categorySlice = createSlice({
       }
     },
     categoryDeleted(state, action) {
-      // state = state.categoryList.filter(i => i.id !== action.payload)
-      // return state
+ 
     
     },
   },

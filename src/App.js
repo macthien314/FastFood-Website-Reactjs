@@ -26,6 +26,7 @@ import EditCategory from './pages/Dashboard/category/EditCategory';
 
 
 import PageNotFound from './pages/Dashboard/pageNotFound/pageNotFound';
+import UserProfile from './pages/Dashboard/profile/UserProfile';
 function App() {
 
   const { user } = useSelector((state) => state.auth);
@@ -74,6 +75,8 @@ function App() {
       <Route path="/users" element={<User />} />
       <Route path="/add-user" element={<AddUser />} />
       <Route path="/edit-user/:id" element={<EditUser />} />
+
+      <Route path="/user-profile" element={<UserProfile />} />
 
       <Route path="/page-404" element={<PageNotFound />} />
     </Routes>

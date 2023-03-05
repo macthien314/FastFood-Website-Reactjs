@@ -1,28 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Form, Row } from "reactstrap";
 import Home from "../home/Home";
-import "./user.css";
-import {
-  addUser,
-
-} from "../../../redux/reducers/UserReducer";
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getAuth } from "../../../redux/reducers/authReducer";
+import { updateUser } from "../../../redux/reducers/UserReducer";
 
-const AddUser = () => {
+export default function UserProfile() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const roleList = [
-    { role: 'admin' },
     { role: 'user' },
-    { role: 'manager' },
-  ]
+  ];
+  useEffect(() => {
+    dispatch(getAuth());
+  }, [dispatch]);
+
+
+  const navigate = useNavigate();
+
+
+  const auth = useSelector((state) => state.auth.currentUser);
+  const userList = useSelector((state) => state.user.userList);
+  const user = userList.filter((users)=>users._id === auth._id)
+
+ 
 
   const isSuccess = useSelector((state) => state.user.isSuccess);
+
 
   const schemaValidation = Yup.object({
     username: Yup.string()
@@ -48,31 +56,38 @@ const AddUser = () => {
   } = useForm({
     resolver: yupResolver(schemaValidation),
     mode: "onChange",
+    defaultValues: {
+      username: `${user[0].username}`,
+      email: `${user[0].email}`,
+      password: `${user[0].password}`,
+      role: `${user[0].role}`,
+      image: `${user[0].image}`,
+
+    },
   });
-
-  const [image, setImage] = useState('');
-
-
+  const [image, setImage] = useState(user.image);
   const onSubmit = async (values) => {
-    const formData = new FormData();
-    formData.append('image', image)
-
-    formData.append('username', values.username)
-    formData.append('email', values.email)
-    formData.append('role', values.role)
-    formData.append('password', values.password)
     if (isValid) {
-      dispatch(addUser(formData));
-    
+      const formData = new FormData();
+      formData.append('image', image)
+      formData.append('username', values.username)
+      formData.append('email', values.email)
+      formData.append('role', values.role)
+      formData.append('password', values.password)
+      formData.append('id', values.id)
+      dispatch(updateUser(formData));
       reset({
         username: "",
         email: "",
         password: "",
         role: "",
-        image: "",
+        image:"",
       });
+      // toast.success('Sửa user thành công')
 
-    
+      // setTimeout(() => {
+      //   navigate("/users");
+      // }, 300)
 
 
     }
@@ -81,15 +96,13 @@ const AddUser = () => {
   useEffect(() => {
     if (isSuccess) {
     
-        navigate('/users')
+        navigate('/dashboard')
     }
-  }, [isSuccess, navigate])
-
+  }, [isSuccess,navigate])
 
   return (
-    <Home name='Add Users'>
+    <Home name='Users Profile'>
       <div id="page-wrapper">
-
 
         <Col xs="12 pt-5">
           <div className="panel panel-info pt-5">
@@ -99,7 +112,7 @@ const AddUser = () => {
                 <Col xs="12">
                   <Form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                     <Row>
-                    <Col xs="6">
+                      <Col xs="6">
                         <div className="form-group mt-4">
                           <label htmlFor="username">Họ tên</label>
                           <input
@@ -129,10 +142,10 @@ const AddUser = () => {
                           )}
                         </div>
                       </Col>
-                      
+
                     </Row>
                     <Row>
-                    <Col xs="4">
+                      <Col xs="4">
                         <div className="form-group mt-4">
                           <label htmlFor="password">Password</label>
                           <input
@@ -147,7 +160,6 @@ const AddUser = () => {
                           )}
                         </div>
                       </Col>
-                     
                       <Col xs="4">
                         <div className="form-group mt-4">
                           <label htmlFor="role">Quyền hạn</label>
@@ -167,13 +179,10 @@ const AddUser = () => {
                           )}
                         </div>
                       </Col>
-              
-                 
                       <Col xs="4">
-                        <div className="form-group mt-4">
+                        <div className="form-group mt-6">
                           <label htmlFor="image">Ảnh</label>
                           <input
-
                             id="image"
                             className="form-control"
                             type="file"
@@ -181,13 +190,19 @@ const AddUser = () => {
                               onChange: (e) => setImage(e.target.files[0])
                             })}
                           />
+                          <img className="mt-3" style={{ width: '100px', height: '100px' }} src={user[0].image} alt=''></img>
                           {errors?.image && (
                             <div className="text-danger">{errors.image?.message}</div>
                           )}
                         </div>
                       </Col>
                     </Row>
-
+                    <input
+                      className="form-control"
+                      defaultValue={user[0]._id}
+                      type="hidden"
+                      {...register("id")}
+                    />
                     <button
                       type="submit"
                       className="btn btn-primary me-2"
@@ -209,7 +224,6 @@ const AddUser = () => {
         </Col>
       </div>
     </Home>
-  );
-};
+  )
+}
 
-export default AddUser;

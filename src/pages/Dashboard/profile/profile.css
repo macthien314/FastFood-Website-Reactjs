@@ -1,0 +1,44 @@
+.text-color a:hover{
+    color: white;
+ }
+ 
+ @media only screen and (max-width: 1300px) {
+    table tr td .btn-outline-danger{
+      margin-top: 5px;
+    }
+    .panel-info .panel-body{
+     overflow-x: scroll;
+   }
+  }
+  
+  
+  @media only screen and (max-width: 704px) {
+  
+  }
+ 
+  .mt-6{
+   margin-top:27px;
+  }
+
+  .cursor-pointer{
+    cursor: pointer;
+}
+.min-height-200{
+    min-height: 200px;
+}
+
+.hidden-input {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
+
+  .max-w80{
+    max-width: 80px;
+  }

@@ -39,7 +39,7 @@ function* workerAddProduct(action) {
     try {
         // const data  = yield call(addNewProduct, action.payload);
         yield put(addProduct(action.payload));
-
+       
 
     } catch (error) {
         console.log(error);
@@ -68,7 +68,6 @@ function* workerAddProduct(action) {
 // }
 
 function* workerUpdateProduct(action) {
-    console.log('action.payload',action.payload)
     try {
         // const { data } = yield call(fetchUpdateProduct, action.payload);
         yield put(updateProduct(action.payload));

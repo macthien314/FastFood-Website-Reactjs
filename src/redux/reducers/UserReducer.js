@@ -5,7 +5,8 @@ const userSlice = createSlice({
   name: "users",
   initialState: { 
     userList: [],
-    query:''
+    query:'',
+    isSuccess: false
   },
 
   reducers: {
@@ -19,26 +20,23 @@ const userSlice = createSlice({
       userList : action.payload
     }),
     addUser: (state, action) => {
-
     },
     updateUser: (state, action) => {
-      const { id, username, email,password, role } = action.payload;
-      const existingUser = state.userList.find((user) => user.id === id);
-      if(existingUser) {
-        existingUser.username = username;
-        existingUser.email = email;
-        existingUser.password = password;
-        existingUser.role = role;
-      }
     },
     userDeleted(state, action) {
-      // state = state.categoryList.filter(i => i.id !== action.payload)
-      // return state
-    
+    },
+    checkSuccess: (state, action) => {
+      state.isSuccess = true;
+
+    },
+
+    checkFail: (state, action) => {
+      state.isSuccess = false;
+
     },
     
   },
 });
 
-export const {getUser, setUser,setQuery,addUser,updateUser,userDeleted} = userSlice.actions;
+export const {getUser, setUser,setQuery,addUser,updateUser,userDeleted,checkSuccess,checkFail} = userSlice.actions;
 export default userSlice.reducer;

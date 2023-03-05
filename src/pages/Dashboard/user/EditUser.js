@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Form, Row } from "reactstrap";
 import Home from "../home/Home";
 import "./user.css";
 import {
-  addUser, updateUser,
+  updateUser,
 
 } from "../../../redux/reducers/UserReducer";
 
@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const EditUser = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,8 @@ const EditUser = () => {
   const params = useParams();
   const userId = params.id;
 
-  const  user  = useSelector((state) => state.user.userList.find((user) => user._id === userId));
+  const user = useSelector((state) => state.user.userList.find((user) => user._id === userId));
+  const isSuccess = useSelector((state) => state.user.isSuccess);
 
 
   const schemaValidation = Yup.object({
@@ -59,30 +60,40 @@ const EditUser = () => {
       email: `${user.email}`,
       password: `${user.password}`,
       role: `${user.role}`,
-   
-  },
-  });
+      image: `${user.image}`,
 
+    },
+  });
+  const [image, setImage] = useState(user.image);
   const onSubmit = async (values) => {
     if (isValid) {
-      console.log('values',values)
-      dispatch(updateUser(values));
-
+      const formData = new FormData();
+      formData.append('image', image)
+      formData.append('username', values.username)
+      formData.append('email', values.email)
+      formData.append('role', values.role)
+      formData.append('password', values.password)
+      formData.append('id', values.id)
+      dispatch(updateUser(formData));
       reset({
         username: "",
         email: "",
         password: "",
         role: "",
+        image:''
       });
-      toast.success('Sửa user thành công')
-
-      setTimeout(() => {
-        navigate("/users");
-      }, 300)
-
-
+      
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+    
+        navigate('/users')
+    }
+  }, [isSuccess,navigate])
+
+
 
   return (
     <Home name='Edit Users'>
@@ -94,38 +105,6 @@ const EditUser = () => {
               <div className="px-3 align-items-center pb-2">
                 <Col xs="12">
                   <Form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                  <Row>
-                    <Col xs="6">
-                        <div className="form-group mt-4">
-                          <label htmlFor="email">Email</label>
-                          <input
-                            id="email"
-                            className="form-control mb-3 mt-1"
-                            {...register("email")}
-                          />
-                          {errors?.email && (
-                            <div className="text-danger">
-                              {errors.email?.message}
-                            </div>
-                          )}
-                        </div>
-                      </Col>
-                      <Col xs="6">
-                        <div className="form-group mt-4">
-                          <label htmlFor="password">Password</label>
-                          <input
-                            id="password"
-                            className="form-control mb-3 mt-1"
-                            {...register("password")}
-                          />
-                          {errors?.password && (
-                            <div className="text-danger">
-                              {errors.password?.message}
-                            </div>
-                          )}
-                        </div>
-                      </Col>
-                    </Row>
                     <Row>
                       <Col xs="6">
                         <div className="form-group mt-4">
@@ -144,6 +123,39 @@ const EditUser = () => {
                       </Col>
                       <Col xs="6">
                         <div className="form-group mt-4">
+                          <label htmlFor="email">Email</label>
+                          <input
+                            id="email"
+                            className="form-control mb-3 mt-1"
+                            {...register("email")}
+                          />
+                          {errors?.email && (
+                            <div className="text-danger">
+                              {errors.email?.message}
+                            </div>
+                          )}
+                        </div>
+                      </Col>
+
+                    </Row>
+                    <Row>
+                      <Col xs="4">
+                        <div className="form-group mt-4">
+                          <label htmlFor="password">Password</label>
+                          <input
+                            id="password"
+                            className="form-control mb-3 mt-1"
+                            {...register("password")}
+                          />
+                          {errors?.password && (
+                            <div className="text-danger">
+                              {errors.password?.message}
+                            </div>
+                          )}
+                        </div>
+                      </Col>
+                      <Col xs="4">
+                        <div className="form-group mt-4">
                           <label htmlFor="role">Quyền hạn</label>
                           <select
                             id="role"
@@ -158,6 +170,23 @@ const EditUser = () => {
                             <div className="text-danger">
                               {errors.role?.message}
                             </div>
+                          )}
+                        </div>
+                      </Col>
+                      <Col xs="4">
+                        <div className="form-group mt-6">
+                          <label htmlFor="image">Ảnh</label>
+                          <input
+                            id="image"
+                            className="form-control"
+                            type="file"
+                            {...register("image", {
+                              onChange: (e) => setImage(e.target.files[0])
+                            })}
+                          />
+                          <img className="mt-3" style={{ width: '100px', height: '100px' }} src={user.image} alt=''></img>
+                          {errors?.image && (
+                            <div className="text-danger">{errors.image?.message}</div>
                           )}
                         </div>
                       </Col>

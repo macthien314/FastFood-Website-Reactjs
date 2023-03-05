@@ -33,9 +33,8 @@ const Product = () => {
   const queryDebounce = useDebounce(searchTerm, 1000);
 
   const [pageNumber, setPageNumber] = useState(0);
-
   const searchedProduct = products.filter((item) => {
-    if (searchTerm.value === "") {
+    if (searchTerm?.value === "") {
       return item;
     }
     if (item?.title.toLowerCase().includes(queryDebounce.toLowerCase())) {
@@ -81,9 +80,9 @@ const Product = () => {
                   <i className="ri-refresh-line"></i>
                 </a>
               </div>
-              <div className="panel-body">
+              <div className="panel-body body-top">
                 <div className="row align-items-center pb-2">
-                  <div className="status-list col-sm-6 px-4">
+                  <div className="status-list col-md-6 col-sm-12 px-4">
                     <a
                       className="btn m-b-sm btn-success btn-sm"
                       href="admin123/item/all"
@@ -103,7 +102,7 @@ const Product = () => {
                       INACTIVE (0)
                     </a>
                   </div>
-                  <div className="col-sm-6">
+                  <div className="col-md-6 col-sm-12">
                     <form action="admin123/item/all" method="GET">
                       <div className="input-group">
                         <input
@@ -120,14 +119,7 @@ const Product = () => {
                             Search
                           </button>
                         </span>
-                        <span className="input-group-btn me-1">
-                          <button
-                            className="btn btn-success text-color"
-                            type="button"
-                          >
-                            <a href="admin123/group/all">Clear</a>
-                          </button>
-                        </span>
+                      
                       </div>
                     </form>
                   </div>

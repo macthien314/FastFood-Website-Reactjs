@@ -21,7 +21,19 @@ const Button = styled.button`
    z-index: 1;
    cursor: pointer;
    color: linear-gradient(
-    to right bottom, #1DC071, #A4D96C)
+    to right bottom, #1DC071, #A4D96C);
+    @media only screen and (max-width: 1050px) {
+        left: 93%;
+}
+
+@media only screen and (max-width: 800px) {
+        left: 91%;
+}
+
+@media only screen and (max-width: 600px) {
+        left: 89%;
+}
+  
 `
 const ScrollButton = (props) => {
 

@@ -1,3 +1,16 @@
 .text-color a:hover{
    color: white;
 }
+
+@media only screen and (max-width: 1077px) {
+   table tr td .btn-outline-danger{
+     margin-top: 5px;
+   }
+ }
+ 
+ 
+ @media only screen and (max-width: 704px) {
+   .panel-info .panel-body{
+     overflow-x: scroll;
+   }
+ }

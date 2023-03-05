@@ -32,7 +32,16 @@ const nav__links = [
 
 const Header = () => {
 
-  const user = useSelector(state => state.auth.currentUser);
+  const auth = useSelector((state) => state.auth.currentUser);
+  const userList = useSelector((state) => state.user.userList);
+  const user = userList.filter((users)=>{
+    if(auth){
+     return users._id === auth._id
+    }
+    else{
+      return []
+    }
+  })
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const menuRef = useRef(null);
   const headerRef = useRef();
@@ -113,10 +122,10 @@ const Header = () => {
               </i>
 
               <UncontrolledDropdown className="mb-2 " group>
-                <DropdownToggle className='dropdown-toggle dropdown-toggle-split border-0 d-flex align-items-center p-0' color="#f1f0f0" />
+                <DropdownToggle className='dropdown-toggle dropdown-toggle-split border-0 d-flex align-items-center p-2' color="#f1f0f0" />
                 <DropdownMenu>
                   <DropdownItem header>
-                    {user?.username || 'Header'}
+                  {auth ? <div><img style={{width:'30px', height:'30px', borderRadius:"50%", marginRight:'4px'}} src={user[0]?.image} alt={user[0]?.username} /> {user[0]?.username}</div>  : 'Header'}
                   </DropdownItem>
                   {!isLoggedIn &&
                     <Link to='/login' style={{lineHeight:'40px'}}>
@@ -129,7 +138,7 @@ const Header = () => {
                   {isLoggedIn &&
                   <Link to='/dashboard' style={{lineHeight:'40px'}}>
                     <DropdownItem  className=" d-flex align-items-center gap-1  pe-2" >
-                      <i className="ri-user-fill "></i>DashBoard
+                    <i className="bx bx-grid-alt" />DashBoard
 
                     </DropdownItem>
                   </Link>
