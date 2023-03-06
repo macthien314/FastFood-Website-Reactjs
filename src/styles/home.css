@@ -187,4 +187,22 @@
   .why__choose-us {
     padding-top: 0 !important;
   }
+
+  section .food__category {
+    justify-content: space-between !important;
+    gap: 4px !important;
+  }
+  .product__item .product__content h5{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .product__item .product__content button{
+    margin-left: 10px;
+  }
+
+  .newsletter span {
+    padding: 8px 25px;
+  }
 }

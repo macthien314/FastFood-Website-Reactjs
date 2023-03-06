@@ -33,6 +33,18 @@ const Button = styled.button`
 @media only screen and (max-width: 600px) {
         left: 89%;
 }
+
+@media only screen and (max-width: 577px) {
+        left: 87%;
+}
+
+@media only screen and (max-width: 500px) {
+        left: 84%;
+}
+
+@media only screen and (max-width: 420px) {
+        left: 82%;
+}
   
 `
 const ScrollButton = (props) => {
