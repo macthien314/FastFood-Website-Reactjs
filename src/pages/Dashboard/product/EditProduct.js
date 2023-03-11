@@ -85,7 +85,7 @@ const EditProduct = () => {
       try {
         const token = localStorage.getItem("access_token");
         const response = await axios.put(
-          `http://fastfood314.up.railway.app/api/v1/product/edit/${productId}`,
+          `https://fastfood314.up.railway.app/api/v1/product/edit/${productId}`,
           formData,
           {
             headers: {

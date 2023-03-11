@@ -33,7 +33,7 @@ function* handleLogin(action) {
 async function fetchAuth(data) {
   try {
     const axiosClient = axios.create({
-      baseURL: "http://fastfood314.up.railway.app/api/v1",
+      baseURL: "https://fastfood314.up.railway.app/api/v1",
     });
     const responses = await axiosClient.post(`/auth/login`, data);
     return responses.data;
@@ -54,7 +54,7 @@ async function fetchUser(token) {
 
   try {
     const response = await axios.get(
-      `http://fastfood314.up.railway.app/api/v1/auth/me`,
+      `https://fastfood314.up.railway.app/api/v1/auth/me`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -80,7 +80,7 @@ function* handleRegister(action) {
 async function fetchRegister(data) {
   try {
     const axiosClient = axios.create({
-      baseURL: "http://fastfood314.up.railway.app/api/v1",
+      baseURL: "https://fastfood314.up.railway.app/api/v1",
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",
@@ -109,7 +109,7 @@ function* handleForgotPassWord(action) {
 async function fetchForgotPassWord(data) {
   try {
     const axiosClient = axios.create({
-      baseURL: "http://fastfood314.up.railway.app/api/v1",
+      baseURL: "https://fastfood314.up.railway.app/api/v1",
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",
@@ -141,7 +141,7 @@ async function fetchResetPassWord(data) {
   console.log('data',data)
   try {
  
-    const responses = await axios.post(`http://fastfood314.up.railway.app/api/v1/auth/resetPassword/${data.id}`, {
+    const responses = await axios.post(`https://fastfood314.up.railway.app/api/v1/auth/resetPassword/${data.id}`, {
       password: data.password
     });
 console.log('responses',responses)
