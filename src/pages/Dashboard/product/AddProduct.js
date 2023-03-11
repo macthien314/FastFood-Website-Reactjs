@@ -76,7 +76,7 @@ const AddProduct = () => {
             });
             try {
                 const token = localStorage.getItem('access_token');
-                const response = await axios.post(`http://localhost:4000/api/v1/product/add`, formData, {
+                const response = await axios.post(`http://fastfood314.up.railway.app/api/v1/product/add`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`,
