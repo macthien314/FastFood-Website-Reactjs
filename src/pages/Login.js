@@ -13,15 +13,16 @@ import Layout from "../components/Layout";
 import { login } from "../redux/reducers/authReducer";
 import { useEffect } from "react";
 
-
-
 const Login = () => {
   const loginNameRef = useRef();
   const loginPasswordRef = useRef();
   const navigate = useNavigate();
-  const isLogin = useSelector(state => state.auth.isLoggedIn);
+  const isLogin = useSelector((state) => state.auth.isLoggedIn);
   const schema = yup.object({
-    email: yup.string().email("phải có định dạng @gmail.com").required("This field is required"),
+    email: yup
+      .string()
+      .email("phải có định dạng @gmail.com")
+      .required("This field is required"),
     password: yup
       .string()
       .required("This field is required")
@@ -41,32 +42,24 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async (values) => {
-  // const checkUser = user.filter((item)=> item.email === values.email);
+    // const checkUser = user.filter((item)=> item.email === values.email);
 
     if (isValid) {
-    
-            dispatch(login(values));
-            reset({
-              email: '',
-              password: '',
-            }); 
-           
-          }     
+      dispatch(login(values));
+      reset({
+        email: "",
+        password: "",
+      });
+    }
   };
 
-  useEffect(()=>{
-    if(isLogin){
-    
-    
-      navigate('/')
-     }else{
-      navigate('/login')
-
-     }
-  },[isLogin,navigate])
-
-
-
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  }, [isLogin, navigate]);
 
   return (
     <Layout>
@@ -81,7 +74,6 @@ const Login = () => {
                     <input
                       type="email"
                       placeholder="Email"
-
                       ref={loginNameRef}
                       {...register("email")}
                     />
@@ -91,19 +83,25 @@ const Login = () => {
                     )}
                   </div>
 
-                  <div className="form__group">
+                  <div className="form__group mb-3">
                     <input
                       type="password"
                       placeholder="Password"
-
                       ref={loginPasswordRef}
                       {...register("password")}
                     />
 
                     {errors?.password && (
-                      <div className="text-danger">{errors.password?.message}</div>
+                      <div className="text-danger">
+                        {errors.password?.message}
+                      </div>
                     )}
+
+                    <Link to="/recovery"  className="mt-3 text-end d-block fs-7">
+                      Forgot Password?
+                    </Link>
                   </div>
+
                   <button type="submit" className="addTOCart__btn">
                     Login
                   </button>

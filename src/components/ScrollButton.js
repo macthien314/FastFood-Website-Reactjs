@@ -75,7 +75,7 @@ const ScrollButton = (props) => {
     return (
         <Button onClick={scrollToTop}
                 style={{ display: visible ? 'inline' : 'none' }}>
-            <FaAngleUp style={{ marginTop: '-4px', marginLeft: '1px'}} />
+            <FaAngleUp style={{ marginTop: '-4px'}} />
         </Button>
     );
 }

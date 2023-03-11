@@ -37,6 +37,14 @@ const authSlice = createSlice({
     ...state,
     ...action.payload,
    }),
+
+   forgotPassword: (state, action) =>({
+    
+   }),
+
+   resetPassword: (state, action) =>({
+    
+   }),
   
   },
 });
@@ -44,6 +52,6 @@ const authSlice = createSlice({
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectIsLogging = (state) => state.auth.logging;
 
-export const {login, loginSuccess, loginFail, logout,getAuth,setAuth,registerSuccess} = authSlice.actions;
+export const {login, loginSuccess, loginFail, logout,getAuth,setAuth,registerSuccess,forgotPassword,resetPassword} = authSlice.actions;
 const authReducer = authSlice.reducer;
 export default authReducer;

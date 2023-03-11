@@ -27,6 +27,8 @@ import EditCategory from './pages/Dashboard/category/EditCategory';
 
 import PageNotFound from './pages/Dashboard/pageNotFound/pageNotFound';
 import UserProfile from './pages/Dashboard/profile/UserProfile';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 function App() {
 
   const { user } = useSelector((state) => state.auth);
@@ -77,6 +79,10 @@ function App() {
       <Route path="/edit-user/:id" element={<EditUser />} />
 
       <Route path="/user-profile" element={<UserProfile />} />
+
+      <Route path="/recovery" element={<ForgotPassword />} />
+
+      <Route path="/reset_password" element={<ResetPassword/>} />
 
       <Route path="/page-404" element={<PageNotFound />} />
     </Routes>

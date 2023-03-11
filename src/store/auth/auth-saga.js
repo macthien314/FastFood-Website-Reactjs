@@ -6,10 +6,8 @@ import {
   loginFail,
   loginSuccess,
   logout,
-  registerSuccess,
+  registerSuccess,forgotPassword, resetPassword
 } from "../../redux/reducers/authReducer";
-
-
 function* handleLogin(action) {
 
   try {
@@ -35,7 +33,7 @@ function* handleLogin(action) {
 async function fetchAuth(data) {
   try {
     const axiosClient = axios.create({
-      baseURL: "https://fastfood314.up.railway.app/api/v1",
+      baseURL: "http://localhost:4000/api/v1",
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",
@@ -60,7 +58,7 @@ async function fetchUser(token) {
 
   try {
     const response = await axios.get(
-      `https://fastfood314.up.railway.app/api/v1/auth/me`,
+      `http://localhost:4000/api/v1/auth/me`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +84,7 @@ function* handleRegister(action) {
 async function fetchRegister(data) {
   try {
     const axiosClient = axios.create({
-      baseURL: "https://fastfood314.up.railway.app/api/v1",
+      baseURL: "http://localhost:4000/api/v1",
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",
@@ -100,8 +98,67 @@ async function fetchRegister(data) {
   }
 }
 
+function* handleForgotPassWord(action) {
+  try {
+    const response = yield call(fetchForgotPassWord, action.payload);
+    if(response.success === true){
+      toast.success(response.data)
+    }
+    
+  } catch (error) {
+    toast.error(error)
+  }
+}
+
+async function fetchForgotPassWord(data) {
+  try {
+    const axiosClient = axios.create({
+      baseURL: "http://localhost:4000/api/v1",
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache",
+      },
+    });
+    const responses = await axiosClient.post(`/auth/forgotPassword`, data);
+
+    return responses.data;
+  } catch (error) {
+    return [];
+  }
+}
+
+function* handleResetPassWord(action) {
+  console.log('action.payload', action.payload)
+  try {
+    const response = yield call(fetchResetPassWord, action.payload);
+    if(response.success === true){
+      toast.success("Thay đổi mật khẩu thành công")
+
+    }
+    
+  } catch (error) {
+    toast.error(error)
+  }
+}
+
+async function fetchResetPassWord(data) {
+  console.log('data',data)
+  try {
+ 
+    const responses = await axios.post(`http://localhost:4000/api/v1/auth/resetPassword/${data.id}`, {
+      password: data.password
+    });
+console.log('responses',responses)
+    return responses.data;
+  } catch (error) {
+    return [];
+  }
+}
+
 export default function* authSaga() {
   yield takeLeading(login.type, handleLogin);
   yield takeLeading(logout.type, handleLogout);
   yield takeLeading(registerSuccess.type, handleRegister);
+  yield takeLeading(forgotPassword.type, handleForgotPassWord);
+  yield takeLeading(resetPassword.type, handleResetPassWord);
 }

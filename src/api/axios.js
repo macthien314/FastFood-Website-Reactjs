@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    baseURL: "https://fastfood314.up.railway.app/api/v1",
+    baseURL: "http://localhost:4000/api/v1",
     headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",
