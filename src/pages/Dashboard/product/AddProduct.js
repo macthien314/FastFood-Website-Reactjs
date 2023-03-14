@@ -17,7 +17,7 @@ const AddProduct = () => {
     const navigate = useNavigate();
     const category = useSelector((state) => state.category.categoryList);
     const schemaValidation = Yup.object({
-        title: Yup.string()
+        name: Yup.string()
             .max(100, "Tên sản phẩm ít hơn 100 kí tự")
             .min(3, "Tên sản phẩm ít nhất 4 kí tự")
             .required("Tên sản phẩm không được rỗng"),
@@ -43,7 +43,7 @@ const AddProduct = () => {
         resolver: yupResolver(schemaValidation),
         mode: "onChange",
         defaultValues: {
-            title: "",
+            name: "",
             price: "",
             desc: "",
             category_id: "63c16b43f307c9215fab261f",
@@ -59,7 +59,7 @@ const AddProduct = () => {
         formData.append('image01', image1)
         formData.append('image02', image2)
         formData.append('image03', image3)
-        formData.append('title', values.title)
+        formData.append('name', values.name)
         formData.append('desc', values.desc)
         formData.append('price', values.price)
         formData.append('category_id', values.category_id)
@@ -67,7 +67,7 @@ const AddProduct = () => {
 
         if (isValid) {
             reset({
-                title: "",
+                name: "",
                 price: "",
                 desc: "",
                 image01: "",
@@ -76,7 +76,7 @@ const AddProduct = () => {
             });
             try {
                 const token = localStorage.getItem('access_token');
-                const response = await axios.post(`https://fastfood314.up.railway.app/api/v1/product/add`, formData, {
+                const response = await axios.post(`http://localhost:4000/api/v1/product/add`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`,
@@ -134,14 +134,14 @@ const AddProduct = () => {
                                         <Row>
                                             <Col xs="6">
                                                 <div className="form-group mt-4">
-                                                    <label htmlFor="title">Tên sản phẩm</label>
+                                                    <label htmlFor="name">Tên sản phẩm</label>
                                                     <input
-                                                        id="title"
+                                                        id="name"
                                                         className="form-control mb-3 mt-1"
-                                                        {...register("title")}
+                                                        {...register("name")}
                                                     />
-                                                    {errors?.title && (
-                                                        <div className="text-danger">{errors.title?.message}</div>
+                                                    {errors?.name && (
+                                                        <div className="text-danger">{errors.name?.message}</div>
                                                     )}
                                                 </div>
                                             </Col>

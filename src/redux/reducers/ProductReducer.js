@@ -5,7 +5,7 @@ const productSlice = createSlice({
   name: "products",
   initialState: {
     productList: [],
-    query: ''
+    count: 0
   },
 
   reducers: {
@@ -15,28 +15,41 @@ const productSlice = createSlice({
       productList: action.payload
     }),
     addProduct: (state, action) => (
-  
+
       state.productList.push(action.payload)
       // ...state,
       // productList: [...state.productList, ...action.payload]
-    
-
     ),
-   
-    updateProduct: (state, action) => {
-      const { id, title } = action.payload;
-      const existingCategory = state.productList.find((product) => product.id === id);
-      if(existingCategory) {
-        state.productList = [...state.productList, existingCategory] 
+
+    countProduct: (state, action) => (
+
+      {
+        ...state,
+        count: action.payload
       }
+    ),
+
+
+    updateProduct: (state, action) => {
+      const { id } = action.payload;
+      const existingProductIndex = state.productList.findIndex((product) => product.id === id);
+      if (existingProductIndex !== -1) {
+        const updatedProductList = [...state.productList];
+        updatedProductList[existingProductIndex] = action.payload;
+        return {
+          ...state,
+          productList: updatedProductList,
+        };
+      }
+      return state;
     },
     productDeleted(state, action) {
       // state = state.categoryList.filter(i => i.id !== action.payload)
       // return state
-    
+
     },
   },
 });
 
-export const { getProduct, setProduct, setQuery, addProduct,updateProduct,productDeleted } = productSlice.actions;
+export const { getProduct, setProduct, setQuery, addProduct, updateProduct, productDeleted,countProduct } = productSlice.actions;
 export default productSlice.reducer;

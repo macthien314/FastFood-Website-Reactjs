@@ -37,7 +37,7 @@ const Product = () => {
     if (searchTerm?.value === "") {
       return item;
     }
-    if (item?.title.toLowerCase().includes(queryDebounce.toLowerCase())) {
+    if (item?.name.toLowerCase().includes(queryDebounce.toLowerCase())) {
       return item;
     } else {
       return console.log("not found");
@@ -170,7 +170,7 @@ const Product = () => {
                         return (
                           <tr key={index}>
                             <td>{items._id.slice(0, 24) + "..."}</td>
-                            <td>{items.title}</td>
+                            <td>{items.name}</td>
                             <td>{items.price}</td>
                             <td>{categoryName?.name}</td>
                             <td title={items.image01}>

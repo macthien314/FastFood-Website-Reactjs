@@ -28,7 +28,7 @@ const FoodDetails = () => {
 
 
   const [previewImg, setPreviewImg] = useState(product?.image01);
-  const { title, price, desc, image01 } = product;
+  const { name, price, desc, image01 } = product;
 
   const relatedProduct = products.filter((item) => filterCategory?.id === item?.category_id);
 
@@ -36,7 +36,7 @@ const FoodDetails = () => {
     dispatch(
       cartActions.addItem({
         id,
-        title,
+        name,
         price,
         image01,
       })
@@ -62,7 +62,7 @@ const FoodDetails = () => {
   return (
     <Layout>
       <Helmet title="Product-details">
-        <CommonSection title={title} />
+        <CommonSection title={name} />
 
         <section>
           <Container>
@@ -99,7 +99,7 @@ const FoodDetails = () => {
 
               <Col lg="6" md="6">
                 <div className="single__product-content">
-                  <h2 className="product__title mb-3">{title}</h2>
+                  <h2 className="product__title mb-3">{name}</h2>
                   <p className="product__price">
                     {" "}
                     Price: <span>${price}</span>

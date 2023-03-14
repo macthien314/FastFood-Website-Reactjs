@@ -1,105 +1,126 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Helmet from "../components/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
 
 import { Container, Row, Col } from "reactstrap";
 import ProductCard from "../components/UI/product-card/ProductCard";
 import ReactPaginate from "react-paginate";
+import { useDispatch } from 'react-redux';
 
 import "../styles/all-foods.css";
 import "../styles/pagination.css";
 import { useSelector } from "react-redux";
 import Layout from "../components/Layout";
 import useDebounce from "../hooks/useDebounce";
+import { setProduct } from "../redux/reducers/ProductReducer";
+import axios from "axios";
 
 const AllFoods = () => {
-  const products      = useSelector(state => state.product.productList);
-  const [searchTerm, setSearchTerm] = useState("");
 
+  const products = useSelector(state => state.product.productList);
+  const countProducts = useSelector(state => state.product.count);
+  const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
+  const [activePage, setActivePage] = useState(0);
   const [pageNumber, setPageNumber] = useState(0);
 
-  const queryDebounce = useDebounce(searchTerm, 1000);
+  const queryDebounce = useDebounce(searchTerm, 2000);
+  const [sortOrder, setSortOrder] = useState("");
+
+
+  const productPerPage = 10;
+
+  const handleSortOrderChange = (event) => {
+    setSortOrder(event.target.value);
+    setPageNumber(0); // reset page number to 0 when sort order changes
+  }
 
 
 
-    const searchedProduct = products.filter((item) => {
-    if (searchTerm.value === "") {
-      return item;
-    }
-    if (item.title.toLowerCase().includes(queryDebounce.toLowerCase())) {
-      return item;
-    } else {
-      return''
-    }
-  });
-
-
-
-  const productPerPage = 12;
-  const visitedPage = pageNumber * productPerPage;
-  const displayPage = searchedProduct.slice(
-    visitedPage,
-    visitedPage + productPerPage
-  );
-
-  const pageCount = Math.ceil(searchedProduct.length / productPerPage);
+  const pageCount = Math.ceil(countProducts / productPerPage);
 
   const changePage = ({ selected }) => {
-    setPageNumber(selected);
+    setPageNumber(selected + 1);
+    setActivePage(selected);
   };
 
+  const fetchProducts = async (searchTerm, sortOrder, pageNumber, productPerPage) => {
+    console.log('pageNumberfetchProducts', pageNumber)
+
+
+    try {
+      const response = await axios.get(`http://localhost:4000/api/v1/product`, {
+        params: {
+          name: searchTerm,
+          sort: sortOrder,
+          page: pageNumber, // add 1 to match the API page number (starting from 1)
+          limit: productPerPage,
+        },
+      });
+      return response.data.data;
+    } catch (error) {
+      return [];
+    }
+  }
+  useEffect(() => {
+    fetchProducts(queryDebounce, sortOrder, pageNumber, productPerPage).then((data) => {
+      dispatch(setProduct(data));
+    });
+  }, [queryDebounce, sortOrder, pageNumber, productPerPage, dispatch]);
   return (
     <Layout>
-    <Helmet title="All-Foods">
-      <CommonSection title="All Foods" />
+      <Helmet title="All-Foods">
+        <CommonSection title="All Foods" />
 
-      <section>
-        <Container>
-          <Row>
-            <Col lg="6" md="6" sm="6" xs="12">
-              <div className="search__widget d-flex align-items-center justify-content-between ">
-                <input
-                  type="text"
-                  placeholder="I'm looking for...."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <span>
-                  <i className="ri-search-line"></i>
-                </span>
-              </div>
-            </Col>
-            <Col lg="6" md="6" sm="6" xs="12" className="mb-5">
-              <div className="sorting__widget text-end">
-                <select className="w-50">
-                  <option>Default</option>
-                  <option value="ascending">Alphabetically, A-Z</option>
-                  <option value="descending">Alphabetically, Z-A</option>
-                  <option value="high-price">High Price</option>
-                  <option value="low-price">Low Price</option>
-                </select>
-              </div>
-            </Col>
-
-            {displayPage.map((item) => (
-              <Col lg="3" md="4" sm="6" xs="6" key={item.id} className="mb-4">
-                <ProductCard item={item} />
+        <section>
+          <Container>
+            <Row>
+              <Col lg="6" md="6" sm="6" xs="12">
+                <div className="search__widget d-flex align-items-center justify-content-between ">
+                  <input
+                    type="text"
+                    placeholder="I'm looking for...."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <span>
+                    <i className="ri-search-line"></i>
+                  </span>
+                </div>
               </Col>
-            ))}
+              <Col lg="6" md="6" sm="6" xs="12" className="mb-5">
+                <div className="sorting__widget text-end">
+                  <label className="me-2" htmlFor="sortOrder">Sort by:</label>
+                  <select className="w-50" id="sortOrder" value={sortOrder} onChange={handleSortOrderChange}>
+                    <option value="" >Default</option>
+                    <option value="-price">Price: High to Low</option>
+                    <option value="price">Price: Low to High</option>
+                    <option value="name">Name: A to Z</option>
+                  </select>
+                </div>
+              </Col>
 
-            <div>
-              <ReactPaginate
-                pageCount={pageCount}
-                onPageChange={changePage}
-                previousLabel={"Prev"}
-                nextLabel={"Next"}
-                containerClassName=" paginationBttns "
-              />
-            </div>
-          </Row>
-        </Container>
-      </section>
-    </Helmet>
+              {products.map((item) => (
+                <Col lg="3" md="4" sm="6" xs="6" key={item.id} className="mb-4">
+                  <ProductCard item={item} />
+                </Col>
+              ))}
+
+              <div>
+                <ReactPaginate
+                  pageCount={pageCount}
+                  onPageChange={changePage}
+                  previousLabel={"Prev"}
+                  nextLabel={"Next"}
+                  containerClassName=" paginationBttns "
+                  pageClassName="paginationPage"
+                  activeClassName="paginationActive"
+                />
+              </div>
+            </Row>
+          </Container>
+        </section>
+      </Helmet>
     </Layout>
   );
 };

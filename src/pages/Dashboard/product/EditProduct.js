@@ -26,7 +26,7 @@ const EditProduct = () => {
   );
 
   const schemaValidation = Yup.object({
-    title: Yup.string()
+    name: Yup.string()
       .max(100, "Tên sản phẩm ít hơn 100 kí tự")
       .min(3, "Tên sản phẩm ít nhất 4 kí tự")
       .required("Tên sản phẩm không được rỗng"),
@@ -51,7 +51,7 @@ const EditProduct = () => {
     resolver: yupResolver(schemaValidation),
     mode: "onChange",
     defaultValues: {
-      title: `${product.title}`,
+      name: `${product.name}`,
       price: `${product.price}`,
       desc: `${product.desc}`,
       image1: `${product.image01}`,
@@ -68,14 +68,14 @@ const EditProduct = () => {
     formData.append("image01", image1);
     formData.append("image02", image2);
     formData.append("image03", image3);
-    formData.append("title", values.title);
+    formData.append("name", values.name);
     formData.append("desc", values.desc);
     formData.append("price", values.price);
     formData.append("category_id", values.category_id);
 
     if (isValid) {
       reset({
-        title: "",
+        name: "",
         price: "",
         desc: "",
         image01: "",
@@ -85,7 +85,7 @@ const EditProduct = () => {
       try {
         const token = localStorage.getItem("access_token");
         const response = await axios.put(
-          `https://fastfood314.up.railway.app/api/v1/product/edit/${productId}`,
+          `http://localhost:4000/api/v1/product/edit/${productId}`,
           formData,
           {
             headers: {
@@ -125,15 +125,15 @@ const EditProduct = () => {
                     <Row>
                       <Col xs="6">
                         <div className="form-group mt-4">
-                          <label htmlFor="title">Tên sản phẩm</label>
+                          <label htmlFor="name">Tên sản phẩm</label>
                           <input
-                            id="title"
+                            id="name"
                             className="form-control mb-3 mt-1"
-                            {...register("title")}
+                            {...register("name")}
                           />
-                          {errors?.title && (
+                          {errors?.name && (
                             <div className="text-danger">
-                              {errors.title?.message}
+                              {errors.name?.message}
                             </div>
                           )}
                         </div>
