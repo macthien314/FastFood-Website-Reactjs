@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Helmet from "../components/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
 
@@ -44,14 +44,11 @@ const AllFoods = () => {
     setActivePage(selected);
   };
 
-  const fetchProducts = async (searchTerm, sortOrder, pageNumber, productPerPage) => {
-    console.log('pageNumberfetchProducts', pageNumber)
-
-
+  const fetchProducts = async (queryDebounce, sortOrder, pageNumber, productPerPage) => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/v1/product`, {
+      const response = await axios.get(`https://fastfood314.up.railway.app/api/v1/product`, {
         params: {
-          name: searchTerm,
+          name: queryDebounce,
           sort: sortOrder,
           page: pageNumber, // add 1 to match the API page number (starting from 1)
           limit: productPerPage,

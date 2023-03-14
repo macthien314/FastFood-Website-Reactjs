@@ -13,7 +13,7 @@ function* workerGetUser() {
 }
 async function fetchUser() {
   try {
-    const response = await axios.get(`http://localhost:4000/api/v1/users`);
+    const response = await axios.get(`https://fastfood314.up.railway.app/api/v1/users`);
     return response.data;
   } catch (error) {
     return [];
@@ -45,7 +45,7 @@ async function addNewUser(data) {
   try {
     const token = localStorage.getItem("access_token");
     const response = await axios.post(
-      `http://localhost:4000/api/v1/users/add`,
+      `https://fastfood314.up.railway.app/api/v1/users/add`,
       data,
       {
         headers: {
@@ -87,7 +87,7 @@ async function updateUsers(data) {
   try {
     const token = localStorage.getItem("access_token");
     const response = await axios.put(
-      `http://localhost:4000/api/v1/users/edit/${data.get("id")}`,
+      `https://fastfood314.up.railway.app/api/v1/users/edit/${data.get("id")}`,
       data,
       {
         headers: {
@@ -116,7 +116,7 @@ async function deleteUsers(data) {
   try {
     const token = localStorage.getItem("access_token");
     const response = await axios.delete(
-      `http://localhost:4000/api/v1/users/delete/${data}`,
+      `https://fastfood314.up.railway.app/api/v1/users/delete/${data}`,
       {
         headers: {
           "Content-Type": "application/json",

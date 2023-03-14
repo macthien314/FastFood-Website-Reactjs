@@ -19,7 +19,7 @@ function* workerGetProduct() {
 
 async function fetchProduct() {
     try {
-        const response = await axios.get(`http://localhost:4000/api/v1/product`);
+        const response = await axios.get(`https://fastfood314.up.railway.app/api/v1/product`);
         return response.data;
     } catch (error) {
         return [];
@@ -78,7 +78,7 @@ function* workerDeleteProduct(action) {
 async function fetchDeleteProduct(data) {
     try {
         const token = localStorage.getItem('access_token');
-        const response = await axios.delete(`http://localhost:4000/api/v1/product/delete/${data}`, {
+        const response = await axios.delete(`https://fastfood314.up.railway.app/api/v1/product/delete/${data}`, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
